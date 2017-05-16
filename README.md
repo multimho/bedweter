@@ -1,14 +1,13 @@
-# bedweter
-= Requirements =
+# bedweter requirements #
 
-== Verpleging ==
+## Verpleging ##
 Moet
   * kunnen zoeken naar bedden
   * burger kunnen aanmelden voor een bed
   * duur van opname ingeven
   * DBC nummer opgeven
 
-== Burger ==
+## Burger ##
 Heeft
 
   * BSN
@@ -29,7 +28,7 @@ aparte "tabel" ingeschreven in de locker?
 
 Verpleging dingen (DBC, duur opname)
   
-== Beddenplek ==
+## Beddenplek ##
 Heeft
 
   * Lijst met bedden (en een totaal)
@@ -43,7 +42,7 @@ Heeft
       - postcode  (en dus afstand !)
       - GPS ?
 
-== Verzekeraar ==
+## Verzekeraar ##
 Moet
   * een bed goedkeuren (DBC en duur controleren)
   * kijken of iemand betaald heeft (verzekerd is)
