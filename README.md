@@ -32,6 +32,16 @@
   * Beddenplekken (organisatie kaarten) sorteren op basis van afstand tot
     woonhuis familie patient
 
+### UI Design schetsen
+
+#### Voor de beddenplek
+![Beddenplek view](https://github.com/mho/bedweter/blob/master/design/beddenplek_view.png "Scherm van de beddenplek")
+
+#### Voor de verpleging 
+![Verpleging view](https://github.com/mho/bedweter/blob/master/design/verplegin_view.png "Scherm van de verpleging")
+
+Ja er is genoeg ruimte om deze UI's ter verbeteren. Voel je vrij!
+
 ### Technische systeem eisen en technieken
   * SPA (Single page webapplication)
   * HTML5, CSS en javascript
