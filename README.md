@@ -1,4 +1,36 @@
-# bedweter requirements #
+# bedweter v1 eisen #
+
+## Versie 1 ##
+
+### actoren ###
+  * **Verpleging**; Iemand binnen een ziekenhuis die een bed zoekt 
+    voor een (ontslagen?) patient. Wil graag een overzicht zien 
+    van alle beschikbare bedden van _aangesloten_ _beddenplekken_. 
+    Doel is om snel een geschikt beschikbaar bed te vinden en 
+    te reserveren.
+  * **Beddenplek**; Iemand binnen een organisatie met verzorgingsmogelijkheden
+    voor patienten. Zij willen graag hun bedden ter beschikking stellen
+    aan _aangesloten_ organisaties. Bedden kunnen bepaalde eigenschappen
+    hebben. En bedden zijn beschikbaar (te resereveren) of bezet.
+  * **Aangesloten**; In versie 1 van de bedweter betekent dit dat 
+    de personen binnen de _beddenplek_ en _verpleging_ organisaties
+    bedden mogen inzien en reserveren. Het is op dit moment onbekend
+    wat de voorwaarden zijn om _aangesloten_ te worden. 
+
+### Functionele wensen
+  * Twee GUI's; een voor de verpleging, een voor de beddenplek
+  * Verpleging ziet verschillende tabellen met beschikbare bedden
+    van aangesloten beddenplekken.
+  * Beddenplek ziet hun eigen tabel met beschikbare bedden.
+
+### nice to have
+  * Beddenplek kan zien wie toegang heeft
+  * Verpleging kan toegang vragen bij beddenplek 
+  * Beddenplek kan status (beschikbaar, niet beschikbaar) aanpassen van 
+    een bed
+  * Verpleging kan beschikbaar bed reserveren 
+
+# bedweter: uiteindelijke wensen #
 
 ## Verpleging ##
 Moet
