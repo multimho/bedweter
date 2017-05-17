@@ -38,7 +38,7 @@
 ![Beddenplek view](https://github.com/mho/bedweter/blob/master/design/beddenplek_view.png "Scherm van de beddenplek")
 
 #### Voor de verpleging 
-![Verpleging view](https://github.com/mho/bedweter/blob/master/design/verplegin_view.png "Scherm van de verpleging")
+![Verpleging view](https://github.com/mho/bedweter/blob/master/design/verpleging_view.png "Scherm van de verpleging")
 
 Ja er is genoeg ruimte om deze UI's ter verbeteren. Voel je vrij!
 
