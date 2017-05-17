@@ -29,6 +29,19 @@
   * Beddenplek kan status (beschikbaar, niet beschikbaar) aanpassen van 
     een bed
   * Verpleging kan beschikbaar bed reserveren 
+  * Beddenplekken (organisatie kaarten) sorteren op basis van afstand tot
+    woonhuis familie patient
+
+### Technische systeem eisen en technieken
+  * SPA (Single page webapplication)
+  * HTML5, CSS en javascript
+  * Voor de business logica en "backend" wordt node.js gebruikt via npm.
+    De applicatie wordt dan via browserify omgezet tot een bundle.js en 
+    in de HTML gezet.
+  * Frontend UI en applicatie framework moet nog bepaald worden! Suggesties?
+
+### Afhankelijkheden
+  * IPFS, OpenPGP, 
 
 # bedweter: uiteindelijke wensen #
 
