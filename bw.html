@@ -38,6 +38,7 @@
         ipfs.on('error', (e) => handleError(e))
         ipfs.on('ready', () => {
           elm.innerHTML = "Loading database..."
+<<<<<<< HEAD
 						const orbit = new OrbitDB(ipfs, "foobar")
           db = orbit.kvstore(dbname, { maxHistory: 5, syncHistory: false, cachePath: '/orbit-db' })
           const query = () => {
@@ -45,6 +46,15 @@
             db.put(key, value)
               .catch((e) => handleError(e))
 						console.log("Geschreven naar database: " + value )
+=======
+          const orbit = new OrbitDB(ipfs, "foobar")
+          db = orbit.kvstore(dbname, { maxHistory: 5, syncHistory: false, cachePath: '/orbit-db' })
+          const query = () => {
+						const value = "hoi "+ new Date().getTime()
+//            db.put(key, value)
+//              .catch((e) => handleError(e))
+//						console.log("Geschreven naar database: " + value )
+>>>>>>> 221bb36e0c198314a8900c62be7db9c761627e4a
           }
          //db.events.on('synced', () => getData())
          //db.events.on('ready', () => getData())
