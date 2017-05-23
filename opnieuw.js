@@ -1,5 +1,5 @@
 'use strict'
-
+const bl = require('bl')
 const concat = require('concat-stream')
 const Buffer = require('safe-buffer').Buffer
 const Readable = require('readable-stream');
@@ -7,7 +7,7 @@ const Readable = require('readable-stream');
 var IPFS = require('ipfs')
 
 const node = new IPFS({
-  repo: String(Math.random() + Date.now())
+  repo: "ilogos"//String(Math.random() + Date.now())
 })
 
 node.on('ready', () => {
@@ -46,11 +46,29 @@ function store () {
 
     res.forEach((file) => {
       if (file && file.hash) {
+        document.getElementById('hash').innerText = file.hash
         console.log('successfully stored', file.hash)
-        display(file.hash)
+    //    display(file.hash)
       }
     })
   })
+}
+
+function findFile(){
+    var fileHash = document.getElementById('foobar').value
+    //console.log("Filehash is:", fileHash)
+    //node.files.get(fileHash, function (err, stream) {
+    //      stream.on('end', console.log('ellende'))
+    //  stream.pipe(bl((err, data) => {
+    //    console.log(data.toString())
+    //      }))
+    //    stream.on('data', (file) => {
+    //     // write the file's path and contents to standard out
+    //     console.log(file.path)
+    //     file.content.pipe(process.stdout)
+    // })
+//})
+    display(fileHash)
 }
 
 function display (hash) {
@@ -70,4 +88,8 @@ function display (hash) {
 
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('store').onclick = store
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('read').onclick = findFile
 })
