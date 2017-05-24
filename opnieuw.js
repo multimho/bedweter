@@ -7,7 +7,9 @@ const Readable = require('readable-stream');
 var IPFS = require('ipfs')
 
 const node = new IPFS({
-  repo: "ilogos"//String(Math.random() + Date.now())
+  repo: "ilogos", //String(Math.random() + Date.now())
+  start: true,
+  init: true,
 })
 
 node.on('ready', () => {
