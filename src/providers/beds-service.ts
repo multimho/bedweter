@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AuthHttp} from 'angular2-jwt';
 import {BedModel} from '../models/bed.model';
-import {BedPlaceModel} from '../models/bedplace.model';
+//import {BedPlaceModel} from '../models/bedplace.model';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import *  as AppConfig from '../app/config';
@@ -56,7 +56,12 @@ export class BedsService {
       this.beds[bp_id] = [];
     };
     console.log(this.beds[bp_id]);
-    return this.beds[bp_id].values();
+    var result = [];
+    for (let id in this.beds[bp_id]) {
+      result.push(this.beds[bp_id][id]);
+    }
+    return result;
+
   }
 
   getAll() {
@@ -72,7 +77,9 @@ export class BedsService {
      var result = [];
 
      for (var bp of this.bedplaces) {
-       result += this.getBeds(bp);
+       for (var bed in this.getBeds(bp)) {
+         result.push(bed);
+       }
      };
      return result;
   }
