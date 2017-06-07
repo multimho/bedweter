@@ -33,7 +33,8 @@ export class BedAddPage extends ProtectedPage {
 
   process() {
     this.bedsService.add(this.getAffiliation(), this.bedData.value);
-    this.navCtrl.push('BedsPage');
+    this.navCtrl.pop();
+    //this.navCtrl.push('BedsPage');
     /* this.bedsService.add(this.bedData.value)
       .then(() => this.navCtrl.push('BedsPage'))
       .catch((e) => console.log("add bed error", e)); */
