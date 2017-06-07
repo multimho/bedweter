@@ -20,10 +20,10 @@
     <ion-list-header>
         Radboud UMC
     </ion-list-header>
-    <ion-item *ngFor="let item of items" >
-      <ion-label>{{item.title}}</ion-label>
+    <ion-item *ngFor="let bed of beds" >
+      <ion-label>{{bed.title}}</ion-label>
       <div class="item-note" item-right>
-        {{item.note}}
+        {{bed.bed_location}}
       </div>
       <ion-toggle id="tod" checked="false" (click)="showToastWithCloseButton()"></ion-toggle>
     </ion-item>

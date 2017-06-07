@@ -4,10 +4,22 @@ import {BedModel} from '../models/bed.model';
 //import {BedPlaceModel} from '../models/bedplace.model';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import {Subject} from 'rxjs/Subject';
 import *  as AppConfig from '../app/config';
 
 @Injectable()
 export class BedsService {
+
+  // Observable string sources
+  private bedsChangedSource = new Subject<number>();
+
+  // Observable string streams
+  bedsChanged$ = this.bedsChangedSource.asObservable();
+
+  // Service message commands
+  changeBeds(bed_place: number){
+    this.bedsChangedSource.next(bed_place);
+  }
 
   private cfg: any;
   private nextid: number;

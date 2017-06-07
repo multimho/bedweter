@@ -1,6 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
+import {Subscription} from 'rxjs/Subscription';
+
+import {ProtectedPage} from '../protected-page/protected-page';
+import {Storage} from '@ionic/storage';
+import {BedsService} from '../../providers/beds-service';
+
 /**
  * Generated class for the RegiobedPage page.
  *
@@ -12,30 +18,32 @@ import { ToastController } from 'ionic-angular';
   selector: 'page-regiobed',
   templateUrl: 'regiobed.html',
 })
-export class RegiobedPage {
+export class RegiobedPage extends ProtectedPage implements OnDestroy {
   selectedItem: any;
-  icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
+  public beds: any;
+  subscription: Subscription;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public toastCtrl: ToastController) {
+              public toastCtrl: ToastController,
+              public storage: Storage,
+              public bedsService: BedsService) {
+
+      super(navCtrl, navParams, storage);
+      this.subscription = bedsService.bedsChanged$.subscribe(
+              bed_place => {
+                this.beds = bedsService.getBeds(bed_place);
+              }
+            );
+
 // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
+    this.selectedItem = navParams.get('bed');
 
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
+  }
 
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Bed ' + i,
-        note: 'KC.0' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
-
+  ionViewWillEnter() {
+    this.beds = this.bedsService.getBeds(this.getAffiliation());
+    // this.bedsService.getAll().then(beds => this.beds = beds);
   }
 
   ionViewDidLoad() {
@@ -44,7 +52,7 @@ export class RegiobedPage {
 
   showToastWithCloseButton() {
     const toast = this.toastCtrl.create({
-      message: 'Bed was  succesfully booked!',
+      message: 'Bed was succesfully (un)booked!',
       showCloseButton: true,
       cssClass: 'succes',
       closeButtonText: 'Ok'
@@ -57,5 +65,10 @@ export class RegiobedPage {
     this.navCtrl.push(RegiobedPage, {
       item: item
     });
+  }
+
+  ngOnDestroy() {
+    // prevent memory leak when component destroyed
+    this.subscription.unsubscribe();
   }
 }
