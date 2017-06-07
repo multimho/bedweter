@@ -1,5 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {IonicPage, NavController, NavParams, MenuController} from 'ionic-angular';
+import {Subscription} from 'rxjs/Subscription';
+
 import {ProtectedPage} from '../protected-page/protected-page';
 import {Storage} from '@ionic/storage';
 import {BedsService} from '../../providers/beds-service';
@@ -10,9 +12,10 @@ import {BedModel} from '../../models/bed.model';
   selector: 'page-beds-page',
   templateUrl: 'beds-page.html',
 })
-export class BedsPage extends ProtectedPage {
+export class BedsPage extends ProtectedPage implements OnDestroy {
 
   public beds: any;
+  subscription: Subscription;
 
   constructor(
     public navCtrl: NavController,
@@ -22,6 +25,11 @@ export class BedsPage extends ProtectedPage {
     public bedsService: BedsService) {
 
     super(navCtrl, navParams, storage);
+    this.subscription = bedsService.bedsChanged$.subscribe(
+      bed_place => {
+        this.beds = bedsService.getBeds(bed_place);
+      }
+    )
 
   }
 
@@ -41,6 +49,11 @@ export class BedsPage extends ProtectedPage {
    */
   openPage(page: string) {
     this.navCtrl.push(page);
+  }
+
+  ngOnDestroy() {
+    // prevent memory leak when component destroyed
+    this.subscription.unsubscribe();
   }
 
 }
