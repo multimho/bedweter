@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {Subject} from 'rxjs/Subject';
 import *  as AppConfig from '../app/config';
+import { MockstoreProvider } from './mockstore/mockstore';
 
 @Injectable()
 export class BedsService {
@@ -27,41 +28,42 @@ export class BedsService {
   private beds: any;
 
   constructor(
-    private authHttp: AuthHttp) {
+    private authHttp: AuthHttp,
+    private store: MockstoreProvider) {
 
     this.cfg = AppConfig.cfg;
-    this.nextid = 207;
-    this.bedplaces = this.getBedPlaces();
-    this.beds = {};
+    this.nextid = store.getNextID();
+    this.bedplaces = store.getBedPlaces();
+    this.beds = store.getBeds();
     for (var bp_id in this.bedplaces) {
       this.beds[bp_id] = [];
     }
   }
 
-  getBedPlaces_mockup() {
-    return {
-      1200: {
-        "id": 1200,
-        "user_id": 100,
-        "name": "NUMC",
-        "description": "Radboud Universitair Medisch Centrum",
-        "key": "JJDKJDKJFFDKJ",
-        "ipns_dir": "QMkjadfkjafkasdfkjdsafk"
-      },
-      1207: {
-        "id": 1207,
-        "user_id": 100,
-        "name": "CWZ",
-        "description": "Canisius Wilhelmina Ziekenhuis",
-        "key": "JJDKJDKJFFDKJ",
-        "ipns_dir": "QMkjadfkjafkasdfkjdsafk"
-       }
-    };
-  }
+  // getBedPlaces_mockup() {
+  //   return {
+  //     1200: {
+  //       "id": 1200,
+  //       "user_id": 100,
+  //       "name": "NUMC",
+  //       "description": "Radboud Universitair Medisch Centrum",
+  //       "key": "JJDKJDKJFFDKJ",
+  //       "ipns_dir": "QMkjadfkjafkasdfkjdsafk"
+  //     },
+  //     1207: {
+  //       "id": 1207,
+  //       "user_id": 100,
+  //       "name": "CWZ",
+  //       "description": "Canisius Wilhelmina Ziekenhuis",
+  //       "key": "JJDKJDKJFFDKJ",
+  //       "ipns_dir": "QMkjadfkjafkasdfkjdsafk"
+  //      }
+  //   };
+  // }
 
-  getBedPlaces() {
-    return this.getBedPlaces_mockup();
-  }
+  // getBedPlaces() {
+  //   return this.getBedPlaces_mockup();
+  // }
 
   getBeds(bp_id: number){
     if (!this.beds.hasOwnProperty(bp_id)) {
