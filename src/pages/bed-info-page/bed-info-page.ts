@@ -28,6 +28,7 @@ export class BedInfoPage extends ProtectedPage {
   }
 
   editBed(bed: BedModel) {
+    this.navCtrl.pop();
     this.navCtrl.push('BedEditPage', {bed: bed});
   }
 
@@ -38,7 +39,4 @@ export class BedInfoPage extends ProtectedPage {
       .then(() => this.navCtrl.pop())
       .catch(e => console.log("delete bed error", e)); */
   }
-
-
-
 }
