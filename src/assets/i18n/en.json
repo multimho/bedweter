@@ -1,0 +1,38 @@
+{
+  "label": {
+    "email": "Email address",
+    "password": "Password",
+    "name": "Name",
+    "password": "Password",
+    "confirm_password" : "Confirm password",
+    "title" : "Title",
+    "bed_location": "Bed location",
+    "beds_in_room": "# of beds in the room"
+  },
+  "button" : {
+    "login" : "Login",
+    "register" : "Register",
+    "new_registration" : "New registration",
+    "forgotten_password" : "Forgotten password?",
+    "submit" : "Submit",
+    "add_bed": "Add new bed",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "page" : {
+    "login" : "Login",
+    "logout" : "Logout",
+    "register" : "New registration",
+    "forgotten_password" : "Password recovery",
+    "profile" : "Profile",
+    "beds" : {
+      "list" : "My beds",
+      "add": "Add bed",
+      "edit" : "Edit bed",
+      "preview": "Preview"
+    },
+    "regiobed" : {
+      "title" : "Beds in the area"
+    }
+  }
+}

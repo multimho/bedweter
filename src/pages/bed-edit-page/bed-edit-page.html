@@ -1,0 +1,47 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>    
+    <ion-title>{{ 'page.beds.edit' | translate }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-grid>
+    <ion-row justify-content-around>
+      <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3  align-self-center>
+        <form [formGroup]="bedData" (ngSubmit)="process()">
+          <ion-item>
+            <ion-label floating>{{ 'label.title' | translate }}:</ion-label>
+            <ion-input type="text" formControlName="title"></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-label floating>{{ 'label.bed_location' | translate }}:</ion-label>
+            <ion-input type="text" formControlName="bed_location"></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-label floating>{{ 'label.beds_in_room' | translate }}:</ion-label>
+            <ion-input type="number" formControlName="beds_in_room"></ion-input>
+          </ion-item>
+          
+
+          <button margin-top ion-button type="submit" [disabled]="!bedData.valid">{{ 'button.submit' | translate }}</button>
+
+        </form>
+        
+      </ion-col>
+
+    </ion-row>
+    
+    
+    
+  </ion-grid>  
+  
+</ion-content>
