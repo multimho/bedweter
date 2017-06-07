@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, MenuController} from 'ionic-angular';
+import {ToastController} from 'ionic-angular';
 import {ProtectedPage} from '../protected-page/protected-page';
 import {Storage} from '@ionic/storage';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
@@ -17,6 +18,7 @@ export class BedAddPage extends ProtectedPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public toastCtrl: ToastController,
     public menuCtrl: MenuController,
     public storage: Storage,
     public formBuilder: FormBuilder,
@@ -31,10 +33,20 @@ export class BedAddPage extends ProtectedPage {
     });
   }
 
+  showToastWithCloseButton() {
+    const toast = this.toastCtrl.create({
+      message: 'Bed was succesfully added!',
+      showCloseButton: true,
+      cssClass: 'succes',
+      closeButtonText: 'Ok'
+    });
+    toast.present();
+  }
+
   process() {
     this.bedsService.add(this.getAffiliation(), this.bedData.value);
     this.navCtrl.pop();
-    //this.navCtrl.push('BedsPage');
+    this.showToastWithCloseButton();
     /* this.bedsService.add(this.bedData.value)
       .then(() => this.navCtrl.push('BedsPage'))
       .catch((e) => console.log("add bed error", e)); */
