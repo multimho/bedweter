@@ -5,7 +5,7 @@
     "name": "Name",
     "password": "Password",
     "confirm_password" : "Confirm password",
-    "title" : "Title",
+    "title" : "Bed name",
     "bed_location": "Bed location",
     "beds_in_room": "# of beds in the room"
   },
@@ -24,7 +24,7 @@
     "logout" : "Logout",
     "register" : "New registration",
     "forgotten_password" : "Password recovery",
-    "profile" : "Profile",
+    "profile" : "Config my locker",
     "beds" : {
       "list" : "My beds",
       "add": "Add bed",
