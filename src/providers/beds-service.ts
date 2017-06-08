@@ -8,6 +8,23 @@ import {Subject} from 'rxjs/Subject';
 import *  as AppConfig from '../app/config';
 import { MockstoreProvider } from './mockstore/mockstore';
 
+/*
+vangt events af van de lockers en stuurt en vraagt data
+van lockers. representatie van de data voor deze case
+weet welke lockers benaderbaar zijn en kan de inhoud ervan
+wijzigen. De lockers zelf maken gebruik van de storage provider.
+
+connectie met 3 lockers
+vult de beddenplek objecten
+onderhoud per beddenplek een lijst met beddenplek (pushed die naar
+de view en ontvangt wijzigingen van de view.)
+
+komt een event binnen (vraag naar data of update).
+in event staat welke locker het is
+update de eigen representatie van die locker of haal de data uit de representatie
+
+*/
+
 @Injectable()
 export class BedsService {
 
@@ -39,7 +56,8 @@ export class BedsService {
       this.beds[bp_id] = [];
     }
   }
-
+  // dit is eigenlijk wel goed. deze classe weet welke beddenplekken er zijn
+  // en die staan er of hier hardcoded in of haalt ze uit een demo config.
   // getBedPlaces_mockup() {
   //   return {
   //     1200: {

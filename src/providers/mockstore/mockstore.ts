@@ -47,7 +47,15 @@ export class MockstoreProvider implements StorageInterface {
         "description": "Canisius Wilhelmina Ziekenhuis",
         "key": "JJDKJDKJFFDKJ",
         "ipns_dir": "QMkjadfkjafkasdfkjdsafk"
-       }
+      },
+     1: {
+        "id": 1,
+        "user_id": 100,
+        "name": "EIGEN PLEKKEN",
+        "description": "Lokaal",
+        "key": "JJDKJDKJFFDKJ",
+        "ipns_dir": "QMkjadfkjafkasdfkjdsafk"
+      }
     };
   }
   public getBedPlaces() {
