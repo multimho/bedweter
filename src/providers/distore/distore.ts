@@ -7,8 +7,15 @@ Generated class for the DistoreProvider provider.
 See https://angular.io/docs/ts/latest/guide/dependency-injection.html
 for more info on providers and Angular 2 DI.
 */
+/*
+Wat komt er uit de 3 lockers?
+locker 1 : transferverpleegkundige
+locker 2 : beddenplek 1
+locker 3 : beddenplek 2
+Wat is een beddenplek -> hash en key pair
+*/
 @Injectable()
-export class DistoreProvider {
+export class DistoreProvider implements StorageInterface {
   node: any;
 
   constructor() {
@@ -83,4 +90,7 @@ export class DistoreProvider {
         })
     })
   }
+  public getBeds(){return []};
+  public getBedPlaces(){return []};
+  public getNextID(){return 0};
 }

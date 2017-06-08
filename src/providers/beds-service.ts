@@ -6,6 +6,24 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {Subject} from 'rxjs/Subject';
 import *  as AppConfig from '../app/config';
+import { MockstoreProvider } from './mockstore/mockstore';
+
+/*
+vangt events af van de lockers en stuurt en vraagt data
+van lockers. representatie van de data voor deze case
+weet welke lockers benaderbaar zijn en kan de inhoud ervan
+wijzigen. De lockers zelf maken gebruik van de storage provider.
+
+connectie met 3 lockers
+vult de beddenplek objecten
+onderhoud per beddenplek een lijst met beddenplek (pushed die naar
+de view en ontvangt wijzigingen van de view.)
+
+komt een event binnen (vraag naar data of update).
+in event staat welke locker het is
+update de eigen representatie van die locker of haal de data uit de representatie
+
+*/
 
 @Injectable()
 export class BedsService {
@@ -27,43 +45,45 @@ export class BedsService {
   private beds: any;
 
   constructor(
-    private authHttp: AuthHttp) {
+    private authHttp: AuthHttp,
+    private store: MockstoreProvider) {
 
     this.cfg = AppConfig.cfg;
-    this.nextid = 207;
-    this.bedplaces = this.getBedPlaces();
-    this.beds = {};
+    this.nextid = store.getNextID(); // get defaults from storage
+    this.bedplaces = store.getBedPlaces();
+    this.beds = store.getBeds();
     for (var bp_id in this.bedplaces) {
       this.beds[bp_id] = [];
     }
   }
+  // dit is eigenlijk wel goed. deze classe weet welke beddenplekken er zijn
+  // en die staan er of hier hardcoded in of haalt ze uit een demo config.
+  // getBedPlaces_mockup() {
+  //   return {
+  //     1200: {
+  //       "id": 1200,
+  //       "user_id": 100,
+  //       "name": "NUMC",
+  //       "description": "Radboud Universitair Medisch Centrum",
+  //       "key": "JJDKJDKJFFDKJ",
+  //       "ipns_dir": "QMkjadfkjafkasdfkjdsafk"
+  //     },
+  //     1207: {
+  //       "id": 1207,
+  //       "user_id": 100,
+  //       "name": "CWZ",
+  //       "description": "Canisius Wilhelmina Ziekenhuis",
+  //       "key": "JJDKJDKJFFDKJ",
+  //       "ipns_dir": "QMkjadfkjafkasdfkjdsafk"
+  //      }
+  //   };
+  // }
 
-  getBedPlaces_mockup() {
-    return {
-      1200: {
-        "id": 1200,
-        "user_id": 100,
-        "name": "NUMC",
-        "description": "Radboud Universitair Medisch Centrum",
-        "key": "JJDKJDKJFFDKJ",
-        "ipns_dir": "QMkjadfkjafkasdfkjdsafk"
-      },
-      1207: {
-        "id": 1207,
-        "user_id": 100,
-        "name": "CWZ",
-        "description": "Canisius Wilhelmina Ziekenhuis",
-        "key": "JJDKJDKJFFDKJ",
-        "ipns_dir": "QMkjadfkjafkasdfkjdsafk"
-       }
-    };
-  }
+  // getBedPlaces() {
+  //   return this.getBedPlaces_mockup();
+  // }
 
-  getBedPlaces() {
-    return this.getBedPlaces_mockup();
-  }
-
-  getBeds(bp_id: number){
+  getBeds(bp_id: number){  // hier moeten dus calls in naar storage ipv this
     if (!this.beds.hasOwnProperty(bp_id)) {
       this.beds[bp_id] = [];
     };

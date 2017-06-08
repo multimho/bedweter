@@ -15,6 +15,7 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import { DistoreProvider } from '../providers/distore/distore';
 import { CryptoProvider } from '../providers/crypto/crypto';
+import { MockstoreProvider } from '../providers/mockstore/mockstore';
 
 let storage = new Storage({});
 
@@ -63,7 +64,8 @@ export function createTranslateLoader(http: Http) {
     AuthService,
     BedsService,
     DistoreProvider,
-    CryptoProvider
+    CryptoProvider,
+    MockstoreProvider
   ]
 })
 export class AppModule {}
