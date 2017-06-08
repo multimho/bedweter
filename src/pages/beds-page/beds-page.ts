@@ -25,9 +25,10 @@ export class BedsPage extends ProtectedPage implements OnDestroy {
     public bedsService: BedsService) {
 
     super(navCtrl, navParams, storage);
+    // subscribe to the messages of the bedsService
     this.subscription = bedsService.bedsChanged$.subscribe(
       bed_place => {
-        console.log("Bedplace", bed_place, "changed!!") 
+        console.log("Bedplace", bed_place, "changed!!")
         this.beds = bedsService.getBeds(bed_place);
       }
     )

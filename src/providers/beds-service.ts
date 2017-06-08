@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {AuthHttp} from 'angular2-jwt';
 import {BedModel} from '../models/bed.model';
 //import {BedPlaceModel} from '../models/bedplace.model';
 import 'rxjs/add/operator/map';
@@ -28,150 +27,159 @@ update de eigen representatie van die locker of haal de data uit de representati
 @Injectable()
 export class BedsService {
 
-  // Observable string sources
+  // Create number stream
   private bedsChangedSource = new Subject<number>();
 
-  // Observable string streams
+  // Make number stream observable, share bedsChanged$ with receivers
   bedsChanged$ = this.bedsChangedSource.asObservable();
 
-  // Service message commands
+  // Put messages in observed number stream
   changeBeds(bed_place: number){
     this.bedsChangedSource.next(bed_place);
   }
 
   private cfg: any;
-  private nextid: number;
+  //private nextid: number;
   private bedplaces: any;
   private beds: any;
+  private bpviewmodel: any;
 
   constructor(
-    private authHttp: AuthHttp,
     private store: MockstoreProvider) {
 
     this.cfg = AppConfig.cfg;
-    this.nextid = store.getNextID(); // get defaults from storage
-    this.bedplaces = store.getBedPlaces();
-    this.beds = store.getBeds();
-    for (var bp_id in this.bedplaces) {
-      this.beds[bp_id] = [];
-    }
-  }
-  // dit is eigenlijk wel goed. deze classe weet welke beddenplekken er zijn
-  // en die staan er of hier hardcoded in of haalt ze uit een demo config.
-  // getBedPlaces_mockup() {
-  //   return {
-  //     1200: {
-  //       "id": 1200,
-  //       "user_id": 100,
-  //       "name": "NUMC",
-  //       "description": "Radboud Universitair Medisch Centrum",
-  //       "key": "JJDKJDKJFFDKJ",
-  //       "ipns_dir": "QMkjadfkjafkasdfkjdsafk"
-  //     },
-  //     1207: {
-  //       "id": 1207,
-  //       "user_id": 100,
-  //       "name": "CWZ",
-  //       "description": "Canisius Wilhelmina Ziekenhuis",
-  //       "key": "JJDKJDKJFFDKJ",
-  //       "ipns_dir": "QMkjadfkjafkasdfkjdsafk"
-  //      }
-  //   };
-  // }
-
-  // getBedPlaces() {
-  //   return this.getBedPlaces_mockup();
-  // }
-
-  getBeds(bp_id: number){  // hier moeten dus calls in naar storage ipv this
-    if (!this.beds.hasOwnProperty(bp_id)) {
-      this.beds[bp_id] = [];
+    this.bpviewmodel ={
+       1200: {
+         "id": 1200,
+         "name": "NUMC",
+         "description": "Radboud Universitair Medisch Centrum",
+         "key": "JJDKJDKJFFDKJ",
+         "ipns_dir": "QMkjadfkjafkasdfkjdsafk",
+         "beds": [
+           {"id": 1,
+           "title": "Bed 1",
+           "bed_location": "KC10.02",
+           "beds_in_room": 2
+         },
+           {"id": 1,
+           "title": "Bed 1",
+           "bed_location": "KC10.02",
+           "beds_in_room": 2
+         },
+           {"id": 1,
+           "title": "Bed 1",
+           "bed_location": "KC10.02",
+           "beds_in_room": 2
+         },
+           {"id": 1,
+           "title": "Bed 1",
+           "bed_location": "KC10.02",
+           "beds_in_room": 2
+         },
+           {"id": 1,
+           "title": "Bed 1",
+           "bed_location": "KC10.02",
+           "beds_in_room": 2
+         },
+           {"id": 1,
+           "title": "Bed 1",
+           "bed_location": "KC10.02",
+           "beds_in_room": 2
+         }
+         ]
+       },
+       1207: {
+         "id": 1207,
+         "name": "CWZ",
+         "description": "Canisius Wilhelmina Ziekenhuis",
+         "key": "JJDKJDKJFFDKJ",
+         "ipns_dir": "QMkjadfkjafkasdfkjdsafk",
+         "beds": [
+           {"id": 1,
+           "title": "Bed 1",
+           "bed_location": "Vleugel y - 1.02",
+           "beds_in_room": 2
+         },
+  {"id": 2,
+           "title": "Bed 2",
+           "bed_location": "Vleugel y - 1.03",
+           "beds_in_room": 2
+         },
+  {"id": 3,
+           "title": "Bed 3",
+           "bed_location": "Vleugel y - 1.04",
+           "beds_in_room": 4
+         },
+  {"id": 4,
+           "title": "Bed 4",
+           "bed_location": "Vleugel y - 1.05",
+           "beds_in_room": 6
+         },
+  {"id": 5,
+           "title": "Bed 5",
+           "bed_location": "Vleugel y - 1.06",
+           "beds_in_room": 1
+         }
+       ]
+        },
+       1: {
+      "id": 1,
+        "name": "EIGEN PLEKKEN",
+        "description": "Lokaal",
+        "key": "JJDKJDKJFFDKJ",
+        "ipns_dir": "QMkjadfkjafkasdfkjdsafk",
+         "beds": []
+      }
     };
-    console.log(this.beds[bp_id]);
-    var result = [];
-    for (let id in this.beds[bp_id]) {
-      result.push(this.beds[bp_id][id]);
-    }
-    return result;
+  }
 
+  getBeds(bp_id: number){
+    var result = [];
+    if (this.bpviewmodel.hasOwnProperty(bp_id)) { //exist the requisted bedplace?
+      if (this.bpviewmodel[bp_id].hasOwnProperty("beds")) //valid dictionary
+          result = this.bpviewmodel[bp_id].beds; //return beds even if no beds
+    };
+    console.log(result);
+    return result;
+  }
+
+  getBedPlaceIDs(){
+     let result = [];
+     for (let bp in this.bpviewmodel) //NB: access *key* not the id in dictionary!
+          result.push(bp);
+    return result;
+  }
+
+  getBedPlaceInfo(bp_id: number){
+    return {
+      "name": this.bpviewmodel[bp_id].name,
+      "description": this.bpviewmodel[bp_id].description,
+      "ipns_dir": this.bpviewmodel[bp_id].ipns_dir
+    }
   }
 
   getAll() {
-  /*
-    return this.authHttp.get(this.cfg.apiUrl + this.cfg.beds)
-      .toPromise()
-      .then(rs => {
-        return rs.json();
-      });
-   */
-     //return this.beds.json();
-
-     var result = [];
-
-     for (var bp of this.bedplaces) {
-       for (var bed in this.getBeds(bp)) {
-         result.push(bed);
-       }
-     };
-     return result;
+     return this.bpviewmodel;
   }
 
-  getOne(bp_id: number, id: number) {
-  /*
-    return this.authHttp.get(this.cfg.apiUrl + this.cfg.beds + '/' + id)
-      .toPromise()
-      .then(rs => {
-        console.log(rs, rs.json());
-        return rs.json().bed;
-      });
-  */
-    return this.beds[bp_id][id];
-  }
-
-  add(bp_id: number, bed: BedModel) {
-  /*
-    return this.authHttp.post(this.cfg.apiUrl + this.cfg.beds, bed)
-      .toPromise()
-      .then(() => {
-        return true;
-      })
-      .catch(e => console.log("create bed error", e));
-  */
-     bed.id = this.nextid++;
-     this.beds[bp_id][bed.id] = bed;
-     this.changeBeds(bp_id);
-     return true;
+  add_or_update(bp_id: number, bed: BedModel) {
+     // TODO: Build event mechanism to ACL / goedkeuring
+     trigger add-or-up event(bedplace = this.getBedPlaceInfo(bp_id) , bed)// acl approval event
    }
 
-  update(bp_id: number, bed: BedModel) {
-  /*
-    return this.authHttp.put(this.cfg.apiUrl + this.cfg.beds + '/' + bed.id, bed)
-      .toPromise()
-      .then(rs => {
-        console.log(rs, rs.json());
-        return rs.json();
-      })
-      .catch(e => console.log("update bed error", e));
-  */
-     this.beds[bp_id][bed.id] = bed;
-     this.changeBeds(bp_id);
-     return bed;
+  remove(bp_id: number, bed: BedModel) {
+     trigger remove event(bedplace = this.getBedPlaceInfo(bp_id) , bed)// acl approval event
   }
 
-  remove(bp_id: number, id: number) {
-  /*
-    return this.authHttp.delete(this.cfg.apiUrl + this.cfg.beds + '/' + id)
-      .toPromise()
-      .then(rs => {
-        console.log(rs, rs.json());
-        return rs.json();
-      })
-      .catch(e => console.log("delete bed error", e));
-  */
-
-    let bed = this.beds[bp_id][id];
-    delete this.beds[bp_id][id];
-    this.changeBeds(bp_id)
-    return bed;
+  book(bp_id: number, bed: BedModel, affl: number){
+     trigger book event(bedplace = this.getBedPlaceInfo(bp_id) , bed, affl)// acl approval event
   }
+  unbook(bp_id: number, bed: BedModel, affl: number){
+     trigger unbook event(bedplace = this.getBedPlaceInfo(bp_id) , bed, affl)// acl approval event
+  }
+   //listen for storage update event
+   listen for update(){
+     pas bpviewmodel aan
+     changebeds() // trigger view update
+   }
 }
