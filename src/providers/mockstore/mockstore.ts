@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
   for more info on providers and Angular 2 DI.
 */
 @Injectable()
-export class MockstoreProvider {
+export class MockstoreProvider implements StorageInterface {
 
   private bedplace: any;
   private beds: any;
@@ -19,7 +19,7 @@ export class MockstoreProvider {
   }
 
   //getBedPlaces(){return this.bedplace }
-  getBeds(){
+  public getBeds(){
     this.beds = [];
     for (let i = 1; i < 11; i++) {
       this.beds.push({
@@ -29,8 +29,8 @@ export class MockstoreProvider {
     }
     return this.beds
   }
-  getNextID(){return 207}
-  getBedPlaces_mockup() {
+  public getNextID(){return 207}
+  private getBedPlaces_mockup() {
     return {
       1200: {
         "id": 1200,
@@ -50,7 +50,7 @@ export class MockstoreProvider {
        }
     };
   }
-  getBedPlaces() {
+  public getBedPlaces() {
     return this.getBedPlaces_mockup();
   }
 }

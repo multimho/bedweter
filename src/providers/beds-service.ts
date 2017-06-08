@@ -32,7 +32,7 @@ export class BedsService {
     private store: MockstoreProvider) {
 
     this.cfg = AppConfig.cfg;
-    this.nextid = store.getNextID();
+    this.nextid = store.getNextID(); // get defaults from storage
     this.bedplaces = store.getBedPlaces();
     this.beds = store.getBeds();
     for (var bp_id in this.bedplaces) {
@@ -65,7 +65,7 @@ export class BedsService {
   //   return this.getBedPlaces_mockup();
   // }
 
-  getBeds(bp_id: number){
+  getBeds(bp_id: number){  // hier moeten dus calls in naar storage ipv this
     if (!this.beds.hasOwnProperty(bp_id)) {
       this.beds[bp_id] = [];
     };
