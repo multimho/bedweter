@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, MenuController} from 'ionic-angular';
+import {ToastController} from 'ionic-angular';
 import {ProtectedPage} from '../protected-page/protected-page';
 import {Storage} from '@ionic/storage';
 import {BedsService} from '../../providers/beds-service';
@@ -17,6 +18,7 @@ export class BedInfoPage extends ProtectedPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public toastCtrl: ToastController,
     public menuCtrl: MenuController,
     public storage: Storage,
     public bedsService: BedsService) {
@@ -27,6 +29,17 @@ export class BedInfoPage extends ProtectedPage {
 
   }
 
+  showToastWithCloseButton() {
+    const toast = this.toastCtrl.create({
+      message: 'Bed was succesfully removed!',
+      showCloseButton: true,
+      duration: 2000,
+      cssClass: 'succes',
+      closeButtonText: 'Ok'
+    });
+    toast.present();
+  }
+
   editBed(bed: BedModel) {
     this.navCtrl.pop();
     this.navCtrl.push('BedEditPage', {bed: bed});
@@ -34,6 +47,7 @@ export class BedInfoPage extends ProtectedPage {
 
   deleteBed(bed: BedModel) {
     this.bedsService.remove(this.getAffiliation(), bed.id);
+    this.showToastWithCloseButton();
     this.navCtrl.pop();
     /* this.bedsService.remove(bed.id)
       .then(() => this.navCtrl.pop())
