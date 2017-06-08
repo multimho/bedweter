@@ -117,10 +117,9 @@ export class BedsService {
       })
       .catch(e => console.log("create bed error", e));
   */
-     console.log(this.bedplaces)
-     console.log(this.beds)
      bed.id = this.nextid++;
      this.beds[bp_id][bed.id] = bed;
+     this.changeBeds(bp_id);
      return true;
    }
 
@@ -135,6 +134,7 @@ export class BedsService {
       .catch(e => console.log("update bed error", e));
   */
      this.beds[bp_id][bed.id] = bed;
+     this.changeBeds(bp_id);
      return bed;
   }
 
@@ -151,6 +151,7 @@ export class BedsService {
 
     let bed = this.beds[bp_id][id];
     delete this.beds[bp_id][id];
+    this.changeBeds(bp_id)
     return bed;
   }
 }

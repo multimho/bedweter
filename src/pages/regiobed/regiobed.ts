@@ -30,12 +30,12 @@ export class RegiobedPage extends ProtectedPage implements OnDestroy {
               public bedsService: BedsService) {
 
       super(navCtrl, navParams, storage);
-      this.subscription = bedsService.bedsChanged$.subscribe(
+      /*this.subscription = bedsService.bedsChanged$.subscribe(
               bed_place => {
                 this.beds = bedsService.getBeds(bed_place);
               }
             );
-
+*/
 // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('bed');
 
@@ -69,6 +69,6 @@ export class RegiobedPage extends ProtectedPage implements OnDestroy {
 
   ngOnDestroy() {
     // prevent memory leak when component destroyed
-    this.subscription.unsubscribe();
+  //  this.subscription.unsubscribe();
   }
 }
