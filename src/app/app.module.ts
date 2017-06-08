@@ -16,6 +16,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import { DistoreProvider } from '../providers/distore/distore';
 import { CryptoProvider } from '../providers/crypto/crypto';
 import { MockstoreProvider } from '../providers/mockstore/mockstore';
+import { AutoriteitProvider } from '../providers/autoriteit/autoriteit';
 
 let storage = new Storage({});
 
@@ -65,7 +66,8 @@ export function createTranslateLoader(http: Http) {
     BedsService,
     DistoreProvider,
     CryptoProvider,
-    MockstoreProvider
+    MockstoreProvider,
+    AutoriteitProvider
   ]
 })
 export class AppModule {}

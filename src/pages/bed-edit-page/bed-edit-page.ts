@@ -40,7 +40,7 @@ export class BedEditPage extends ProtectedPage {
 
     let updatedBed = Object.assign(this.bed, this.bedData.value);
 
-    this.bedsService.update(this.getAffiliation(), updatedBed);
+    this.bedsService.add_or_update(this.getAffiliation(), updatedBed);
     this.navCtrl.pop();
     /* this.bedsService.update(updatedBed)
       .then(() => this.navCtrl.pop())

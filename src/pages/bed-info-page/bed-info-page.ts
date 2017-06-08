@@ -46,7 +46,7 @@ export class BedInfoPage extends ProtectedPage {
   }
 
   deleteBed(bed: BedModel) {
-    this.bedsService.remove(this.getAffiliation(), bed.id);
+    this.bedsService.remove(this.getAffiliation(), bed);
     this.showToastWithCloseButton();
     this.navCtrl.pop();
     /* this.bedsService.remove(bed.id)

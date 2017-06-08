@@ -5,6 +5,8 @@ import {ProtectedPage} from '../protected-page/protected-page';
 import {Storage} from '@ionic/storage';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {BedsService} from '../../providers/beds-service';
+import {BedModel} from '../../models/bed.model';
+
 
 @IonicPage()
 @Component({
@@ -45,7 +47,10 @@ export class BedAddPage extends ProtectedPage {
   }
 
   process() {
-    this.bedsService.add(this.getAffiliation(), this.bedData.value);
+    let bed: BedModel;
+    bed = new BedModel();
+    let newbed = Object.assign(bed, this.bedData.value);
+    this.bedsService.add_or_update(this.getAffiliation(), newbed);
     this.navCtrl.pop();
     this.showToastWithCloseButton();
     /* this.bedsService.add(this.bedData.value)

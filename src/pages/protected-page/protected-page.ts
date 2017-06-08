@@ -9,7 +9,7 @@ export class ProtectedPage {
     public navParams: NavParams,
     public storage: Storage) {
 
-    this.affiliation = 0;  }
+    this.affiliation = 1207;  }
 
   ionViewCanEnter() {
 
