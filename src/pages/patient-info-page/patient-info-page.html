@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Patient</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card *ngIf="patient">
+    <ion-card-content>
+      <h1>{{ patient.name }}</h1>
+      {{ patient.date_of_birth }}
+    </ion-card-content>
+
+
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-left clear small color="secondary" (click)="editPatient(patient)">
+          <ion-icon name="construct"></ion-icon>
+          <div>{{ 'button.edit' | translate }}</div>
+        </button>
+      </ion-col>
+
+      <ion-col text-right>
+        <button ion-button icon-left clear small color="danger" (click)="deletePatient(patient)">
+          <ion-icon name="trash"></ion-icon>
+          <div>{{ 'button.delete' | translate }}</div>
+        </button>
+      </ion-col>
+
+    </ion-row>
+
+
+  </ion-card>
+
+</ion-content>

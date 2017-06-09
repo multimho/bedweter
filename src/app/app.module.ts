@@ -8,6 +8,7 @@ import {AuthHttp, AuthConfig} from 'angular2-jwt';
 import {Storage} from '@ionic/storage';
 import {AuthService} from '../providers/auth-service';
 import {BedsService} from '../providers/beds-service';
+import {PatientsService} from '../providers/patients-service';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
@@ -64,6 +65,7 @@ export function createTranslateLoader(http: Http) {
     },
     AuthService,
     BedsService,
+    PatientsService,
     DistoreProvider,
     CryptoProvider,
     MockstoreProvider,

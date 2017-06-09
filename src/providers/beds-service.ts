@@ -133,8 +133,8 @@ export class BedsService {
         }
       ]
     },
-    1: {
-      "id": 1,
+    5: {
+      "id": 5, 
       "name": "EIGEN PLEKKEN",
       "description": "Lokaal",
       "key": "JJDKJDKJFFDKJ",
