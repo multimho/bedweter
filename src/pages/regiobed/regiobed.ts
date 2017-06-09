@@ -7,6 +7,7 @@ import {AutoriteitProvider} from '../../providers/autoriteit/autoriteit'
 import {ProtectedPage} from '../protected-page/protected-page';
 import {Storage} from '@ionic/storage';
 import {BedsService} from '../../providers/beds-service';
+import {RegiobedCmpPage} from '../regiobed-cmp/regiobed-cmp';
 
 /**
  * Generated class for the RegiobedPage page.
@@ -68,6 +69,13 @@ export class RegiobedPage extends ProtectedPage implements OnDestroy {
     });
     toast.present();
     this.bedsService.book(a, b, this.getAffiliation())
+  }
+
+  compare(){
+    let keys1 = Object.keys(this.beds[1]);
+    let keys2 = Object.keys(this.beds[2]);
+    this.navCtrl.push('RegiobedCmpPage', {'bed1': this.beds[0]['b'],
+    'keys1': keys1, 'bed2': this.beds[1]['b'], 'keys2': keys2});
   }
 
   itemTapped(event, item) {
