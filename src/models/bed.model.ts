@@ -3,7 +3,7 @@ export class BedModel {
   public title: string;
   public bed_location: string;
   public beds_in_room: number;
-  public booked=0; //number
+  public booked=0; //number of affl or zero
   public hash?: string;
   constructor(){
     this.title = "Bed 0";

@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
+import {BedPlaceModel} from '../models/bedplace.model';
 import {BedModel} from '../models/bed.model';
 //import {BedPlaceModel} from '../models/bedplace.model';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {Subject} from 'rxjs/Subject';
 import *  as AppConfig from '../app/config';
-import { MockstoreProvider } from './mockstore/mockstore';
+//import {AutoriteitProvider} from './autoriteit/autoriteit'
 import { Events } from 'ionic-angular';
-
 /*
 vangt events af van de lockers en stuurt en vraagt data
 van lockers. representatie van de data voor deze case
@@ -45,10 +45,9 @@ export class BedsService {
   private beds: any;
   private bpviewmodel: any;
 
-  constructor(
-    private store: MockstoreProvider,
-    public events: Events ) {
-
+  constructor( public events: Events,
+    //   public au: AutoriteitProvider
+             ) {
       this.cfg = AppConfig.cfg;
       this.bpviewmodel =
       {
@@ -140,7 +139,13 @@ export class BedsService {
       "description": "Lokaal",
       "key": "JJDKJDKJFFDKJ",
       "ipns_dir": "QMkjadfkjafkasdfkjdsafk",
-      "beds": []
+      "beds": [        {
+          "id": 4,
+          "title": "Bed 4",
+          "bed_location": "Vleugel y - 1.05",
+          "beds_in_room": 6
+        }
+      ]
     }
   };
   //let i = 1200;
@@ -150,6 +155,14 @@ export class BedsService {
 //    this.bpviewmodel["1200"],
 //    this.bpviewmodel['1200'],
 //  );
+//TODO: listen for storage update event
+//listen for update(){
+//  pas bpviewmodel aan
+//  changebeds() // trigger view update
+this.events.subscribe('storage:update', (x) => {
+     this.bpviewmodel = x;
+    } );
+//}
 }
 
 getBeds(bp_id: number){
@@ -170,8 +183,16 @@ getBedPlaceIDs(){
   return result;
 }
 
+getBedPlace(bp_id: number){
+    let bp: BedPlaceModel;
+    bp = new BedPlaceModel();
+    let data = this.bpviewmodel[bp_id];
+    return Object.assign(bp, data);
+}
+
 getBedPlaceInfo(bp_id: number){
   return {
+    "id": this.bpviewmodel[bp_id].id,
     "name": this.bpviewmodel[bp_id].name,
     "description": this.bpviewmodel[bp_id].description,
     "ipns_dir": this.bpviewmodel[bp_id].ipns_dir
@@ -182,28 +203,26 @@ getAll() {
   return this.bpviewmodel;
 }
 
-add_or_update(bp_id: number, bed: BedModel) {
+add(bp_id: number, bed: BedModel) {
   // TODO: Build event mechanism to ACL / goedkeuring
   //trigger add-or-up event(bedplace = this.getBedPlaceInfo(bp_id) , bed)// acl approval event
-  this.events.publish('crud-action:add-or-up', bp_id, bed);
+  this.events.publish('crud-action:add', bp_id, bed);
 }
-
+update(bp_id: number, bed: BedModel){
+  this.events.publish('crud-action:update', bp_id, bed);
+}
 remove(bp_id: number, bed: BedModel) {
   //trigger remove event(bedplace = this.getBedPlaceInfo(bp_id) , bed)// acl approval event
   this.events.publish('crud-action:remove', bp_id, bed);
 }
-
 book(bp_id: number, bed: BedModel, affl: number){
   //trigger book event(bedplace = this.getBedPlaceInfo(bp_id) , bed, affl)// acl approval event
+  bed.booked = affl; //booked is now non-zero and thus booked
   this.events.publish('crud-action:book', bp_id, bed, affl);
 }
 unbook(bp_id: number, bed: BedModel, affl: number){
   //trigger unbook event(bedplace = this.getBedPlaceInfo(bp_id) , bed, affl)// acl approval event
   this.events.publish('crud-action:unbook', bp_id, bed, affl);
 }
-//TODO: listen for storage update event
-//listen for update(){
-//  pas bpviewmodel aan
-//  changebeds() // trigger view update
-//}
+
 }

@@ -5,6 +5,7 @@ import {ProtectedPage} from '../protected-page/protected-page';
 import {Storage} from '@ionic/storage';
 import {BedsService} from '../../providers/beds-service';
 import {BedModel} from '../../models/bed.model';
+import {AutoriteitProvider} from '../../providers/autoriteit/autoriteit'
 
 @IonicPage()
 @Component({
@@ -21,6 +22,7 @@ export class BedInfoPage extends ProtectedPage {
     public toastCtrl: ToastController,
     public menuCtrl: MenuController,
     public storage: Storage,
+    public au: AutoriteitProvider,
     public bedsService: BedsService) {
 
     super(navCtrl, navParams, storage);
@@ -49,8 +51,5 @@ export class BedInfoPage extends ProtectedPage {
     this.bedsService.remove(this.getAffiliation(), bed);
     this.showToastWithCloseButton();
     this.navCtrl.pop();
-    /* this.bedsService.remove(bed.id)
-      .then(() => this.navCtrl.pop())
-      .catch(e => console.log("delete bed error", e)); */
   }
 }

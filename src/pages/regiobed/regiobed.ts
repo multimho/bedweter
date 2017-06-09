@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import {Subscription} from 'rxjs/Subscription';
 
+import {AutoriteitProvider} from '../../providers/autoriteit/autoriteit'
 import {ProtectedPage} from '../protected-page/protected-page';
 import {Storage} from '@ionic/storage';
 import {BedsService} from '../../providers/beds-service';
@@ -26,6 +27,7 @@ export class RegiobedPage extends ProtectedPage implements OnDestroy {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public toastCtrl: ToastController,
+              public au: AutoriteitProvider,
               public storage: Storage,
               public bedsService: BedsService) {
 
@@ -42,7 +44,14 @@ export class RegiobedPage extends ProtectedPage implements OnDestroy {
   }
 
   ionViewWillEnter() {
-    this.beds = this.bedsService.getBeds(this.getAffiliation());
+    let places = this.bedsService.getBedPlaceIDs();
+    this.beds = [];
+    for (let p of places){
+      console.log('Dit is p en het bed', p);
+        let b  = this.bedsService.getBeds(p);
+        this.beds.push({p, b});
+    }
+    //this.beds = this.bedsService.getBeds(this.getAffiliation());
     // this.bedsService.getAll().then(beds => this.beds = beds);
   }
 
@@ -50,7 +59,7 @@ export class RegiobedPage extends ProtectedPage implements OnDestroy {
     console.log('ionViewDidLoad RegiobedPage');
   }
 
-  showToastWithCloseButton() {
+  showToastWithCloseButton(a, b) {
     const toast = this.toastCtrl.create({
       message: 'Bed was succesfully (un)booked!',
       showCloseButton: true,
@@ -58,6 +67,7 @@ export class RegiobedPage extends ProtectedPage implements OnDestroy {
       closeButtonText: 'Ok'
     });
     toast.present();
+    this.bedsService.book(a, b, this.getAffiliation())
   }
 
   itemTapped(event, item) {

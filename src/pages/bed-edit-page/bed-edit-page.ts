@@ -5,6 +5,7 @@ import {Storage} from '@ionic/storage';
 import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {BedsService} from '../../providers/beds-service';
 import {BedModel} from '../../models/bed.model';
+import {AutoriteitProvider} from '../../providers/autoriteit/autoriteit'
 
 @IonicPage()
 @Component({
@@ -21,6 +22,7 @@ export class BedEditPage extends ProtectedPage {
     public navParams: NavParams,
     public menuCtrl: MenuController,
     public storage: Storage,
+    public au: AutoriteitProvider,
     public formBuilder: FormBuilder,
     public bedsService: BedsService) {
 
@@ -40,7 +42,7 @@ export class BedEditPage extends ProtectedPage {
 
     let updatedBed = Object.assign(this.bed, this.bedData.value);
 
-    this.bedsService.add_or_update(this.getAffiliation(), updatedBed);
+    this.bedsService.update(this.getAffiliation(), updatedBed);
     this.navCtrl.pop();
     /* this.bedsService.update(updatedBed)
       .then(() => this.navCtrl.pop())

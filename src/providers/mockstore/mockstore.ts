@@ -1,64 +1,47 @@
 import { Injectable } from '@angular/core';
-//import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { BedPlaceModel } from '../../models/bedplace.model';
+import { BedModel } from '../../models/bed.model';
+import { Events } from 'ionic-angular';
 
-/*
-  Generated class for the MockstoreProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class MockstoreProvider implements StorageInterface {
 
-//  private bedplace: any;
-  private beds: any;
+  private repres: any;
 
-  constructor() {
+  constructor(
+ public events: Events
+  ) {
     console.log('Hello MockstoreProvider Provider');
   }
 
-  //getBedPlaces(){return this.bedplace }
-  public getBeds(){
-    this.beds = [];
-    for (let i = 1; i < 11; i++) {
-      this.beds.push({
-        title: 'Bed ' + i,
-        note: 'KC.0' + i,
-      });
-    }
-    return this.beds
+  // Stupid hack to get the mockup data
+  setDefault(r: any){
+    this.repres = r;
   }
-  public getNextID(){return 207}
-  private getBedPlaces_mockup() {
-    return {
-      1200: {
-        "id": 1200,
-        "user_id": 100,
-        "name": "NUMC",
-        "description": "Radboud Universitair Medisch Centrum",
-        "key": "JJDKJDKJFFDKJ",
-        "ipns_dir": "QMkjadfkjafkasdfkjdsafk"
-      },
-      1207: {
-        "id": 1207,
-        "user_id": 100,
-        "name": "CWZ",
-        "description": "Canisius Wilhelmina Ziekenhuis",
-        "key": "JJDKJDKJFFDKJ",
-        "ipns_dir": "QMkjadfkjafkasdfkjdsafk"
-      },
-     1: {
-        "id": 1,
-        "user_id": 100,
-        "name": "EIGEN PLEKKEN",
-        "description": "Lokaal",
-        "key": "JJDKJDKJFFDKJ",
-        "ipns_dir": "QMkjadfkjafkasdfkjdsafk"
-      }
-    };
+
+  add(bp: BedPlaceModel, bed: BedModel){
+    this.repres[bp.id].beds.push(bed);
+    console.log("From mockstore adding: ", this.repres);
+    this.events.publish('storage:update', this.repres);
   }
-  public getBedPlaces() {
-    return this.getBedPlaces_mockup();
+  book(bp: BedPlaceModel, bed: BedModel, affl: number){
+    this.repres[bp.id].beds[bed.id] = bed;
+    this.events.publish('storage:update', this.repres);
+    console.log("From mockstore booking: ", this.repres);
   }
-}
+  unbook(bp: BedPlaceModel, bed: BedModel, affl: number){}
+  update(bp: BedPlaceModel, bed: BedModel){
+    this.repres[bp.id].beds[bed.id] = bed;
+    this.events.publish('storage:update', this.repres);
+    console.log("From mockstore updating: ", this.repres);
+  }
+  remove(bp: BedPlaceModel, bed: BedModel){
+    //delete this.repres[bp.id].beds[bed.id];
+    let index = this.repres[bp.id].beds.indexOf(bed.id);
+    if (index> -1){ this.repres[bp.id].beds.splice(index, 1); }
+    this.events.publish('storage:update', this.repres);
+    console.log("From mockstore deleting: ", this.repres);
+  }
+
+  }

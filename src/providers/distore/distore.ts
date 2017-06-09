@@ -15,7 +15,8 @@ locker 3 : beddenplek 2
 Wat is een beddenplek -> hash en key pair
 */
 @Injectable()
-export class DistoreProvider implements StorageInterface {
+export class DistoreProvider {
+//export class DistoreProvider implements StorageInterface {
   node: any;
 
   constructor() {

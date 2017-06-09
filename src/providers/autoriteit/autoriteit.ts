@@ -3,7 +3,8 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Events } from 'ionic-angular';
 import { BedModel } from '../../models/bed.model';
-
+import { MockstoreProvider } from '../mockstore/mockstore';
+import { BedsService } from '../beds-service';
 /*
   Generated class for the AutoriteitProvider provider.
 
@@ -13,23 +14,35 @@ import { BedModel } from '../../models/bed.model';
 @Injectable()
 export class AutoriteitProvider {
 
-  constructor(public events: Events) {
+  constructor(
+    public events: Events,
+    public store: MockstoreProvider,
+    public bs: BedsService) {
     console.log('Hello AutoriteitProvider Provider');
-    events.subscribe('crud-action:add-or-up', this.add_up );
-    events.subscribe('crud-action:remove', this.remove);
-    events.subscribe('crud-action:book', this.book);
+    store.setDefault(bs.getAll()); // fill the storage with default data
+    events.subscribe('crud-action:add', (bp_id: number, bed: BedModel) => {
+          let bp = this.bs.getBedPlace(bp_id);
+          this.store.add(bp, bed);
+          console.log('AutoriteitProvider - add:', bp_id, bed);
+    } );
+    events.subscribe('crud-action:update', (bp_id: number, bed: BedModel) => {
+          let bp = this.bs.getBedPlace(bp_id);
+          this.store.update(bp, bed);
+          console.log('AutoriteitProvider - update:', bp_id, bed);
+    } );
+    events.subscribe('crud-action:remove', (bp_id: number, bed: BedModel)=>{
+          let bp = this.bs.getBedPlace(bp_id);
+          this.store.remove(bp, bed);
+          console.log('AutoriteitProvider - remove:', bp_id, bed);
+    });
+    events.subscribe('crud-action:book', (bp_id:number, bed: BedModel, affl: number)=>{
+      let bp = this.bs.getBedPlace(bp_id);
+      this.store.book(bp, bed, affl);
+      console.log('AutoriteitProvider - book:', bp_id, bed, affl);
+    });
     events.subscribe('crud-action:unbook', this.unbook);
   }
 
-  add_up = function add_up(bp_id: number, bed: BedModel){
-    console.log('AutoriteitProvider:', bp_id, bed);
-  };
-  remove = function remove(bp_id: number, bed: BedModel){
-    console.log('AutoriteitProvider:', bp_id, bed);
-  };
-  book = function book(bp_id: number, bed: BedModel, affl: number){
-    console.log('AutoriteitProvider:', bp_id, bed, affl);
-  };
   unbook = function unbook(bp_id: number, bed: BedModel, affl: number){
     console.log('AutoriteitProvider:', bp_id, bed, affl);
   };

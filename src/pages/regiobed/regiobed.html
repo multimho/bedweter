@@ -16,16 +16,16 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngFor="let x of beds">
     <ion-list-header>
-        Radboud UMC
+        Radboud UMC {{x.p}}
     </ion-list-header>
-    <ion-item *ngFor="let bed of beds" >
+    <ion-item *ngFor="let bed of x.b" >
       <ion-label>{{bed.title}}</ion-label>
       <div class="item-note" item-right>
         {{bed.bed_location}}
       </div>
-      <ion-toggle id="tod" checked="false" (click)="showToastWithCloseButton()"></ion-toggle>
+      <ion-toggle id="tod" checked="false" (click)="showToastWithCloseButton(x.p, bed)"></ion-toggle>
     </ion-item>
   </ion-list>
 </ion-content>

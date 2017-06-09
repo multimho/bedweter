@@ -1,5 +1,9 @@
+//import { BedModel } from '../models/bed.model';
+
 interface StorageInterface {
-    getBeds();
-    getBedPlaces();
-    getNextID();
+  //book()
+  //update()
+  //getAll()
+  add(bp_id, bed)
+  //remove()
 }
