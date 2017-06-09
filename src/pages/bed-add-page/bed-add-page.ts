@@ -35,6 +35,12 @@ export class BedAddPage extends ProtectedPage {
       title: ['', Validators.required],
       bed_location: ['', Validators.required],
       beds_in_room: ['', Validators.required],
+      place_location: ['', Validators.required],
+      rating: ['', Validators.required],
+      wifi: ['', Validators.required],
+      basics: ['', Validators.required],
+      practices: ['', Validators.required],
+
     });
   }
 
