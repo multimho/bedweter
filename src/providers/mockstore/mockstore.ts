@@ -38,7 +38,7 @@ export class MockstoreProvider implements StorageInterface {
   }
   remove(bp: BedPlaceModel, bed: BedModel){
     //delete this.repres[bp.id].beds[bed.id];
-    let index = this.repres[bp.id].beds.indexOf(bed.id);
+    let index = bed.id-1;
     if (index> -1){ this.repres[bp.id].beds.splice(index, 1); }
     this.events.publish('storage:update', this.repres);
     console.log("From mockstore deleting: ", this.repres);
