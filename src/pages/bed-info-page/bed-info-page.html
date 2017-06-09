@@ -15,7 +15,14 @@
   <ion-card *ngIf="bed">
     <ion-card-content>
       <h1>{{ bed.title }}</h1>
-      {{ bed.bed_location }}, {{ bed.beds_in_room }} beds
+      <p>Kamer: {{ bed.bed_location }}</p>
+      <p>Aantal bedden op kamer: {{ bed.beds_in_room }}</p>
+      <p>Locatie: {{ bed.place_location }}</p>
+      <p>Rating: {{ bed.rating }}</p>
+      <p>Wifi: {{ bed.wifi }}</p>
+      <p>Basics: {{ bed.basics }}</p>
+      <p>Practices: {{ bed.practices }}</p>
+
     </ion-card-content>
 
 
