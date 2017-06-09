@@ -51,6 +51,7 @@ export class BedsService {
       this.cfg = AppConfig.cfg;
       this.bpviewmodel =
       {
+
         1200: {
           "id": 1200,
           "name": "NUMC",
@@ -61,37 +62,68 @@ export class BedsService {
             "id": 1,
             "title": "Bed 1",
             "bed_location": "KC10.02",
-            "beds_in_room": 2
+            "beds_in_room": 2,
+            "place_location" : "Brummen",
+            "rating" : "5",
+            "wifi" : "false",
+            "basics" : "22P5 + delurant",
+            "practices" : "medicatie"
+
           },
           {
             "id": 1,
             "title": "Bed 1",
             "bed_location": "KC10.02",
-            "beds_in_room": 2
+            "beds_in_room": 2,
+            "place_location" : "Brummen",
+            "rating" : "5",
+            "wifi" : "false",
+            "basics" : "22P5 + delurant",
+            "practices" : "medicatie"
           },
           {
             "id": 1,
             "title": "Bed 1",
             "bed_location": "KC10.02",
-            "beds_in_room": 2
+            "beds_in_room": 2,
+            "place_location" : "Brummen",
+            "rating" : "5",
+            "wifi" : "false",
+            "basics" : "22P5 + delurant",
+            "practices" : "medicatie"
           },
           {
             "id": 1,
             "title": "Bed 1",
             "bed_location": "KC10.02",
-            "beds_in_room": 2
+            "beds_in_room": 2,
+            "place_location" : "Brummen",
+            "rating" : "5",
+            "wifi" : "false",
+            "basics" : "22P5 + delurant",
+            "practices" : "medicatie"
           },
           {
             "id": 1,
             "title": "Bed 1",
             "bed_location": "KC10.02",
-            "beds_in_room": 2
+            "beds_in_room": 2,
+            "place_location" : "Brummen",
+            "rating" : "5",
+            "wifi" : "false",
+            "basics" : "22P5 + delurant",
+            "practices" : "medicatie"
           },
           {
             "id": 1,
             "title": "Bed 1",
             "bed_location": "KC10.02",
-            "beds_in_room": 2
+            "beds_in_room": 2,
+            "place_location" : "Brummen",
+            "rating" : "5",
+            "wifi" : "false",
+            "basics" : "22P5 + delurant",
+            "practices" : "medicatie"
           }
         ]
       },
@@ -105,31 +137,56 @@ export class BedsService {
           "id": 1,
           "title": "Bed 1",
           "bed_location": "Vleugel y - 1.02",
-          "beds_in_room": 2
+          "beds_in_room": 2,
+          "place_location" : "Apeldoorn",
+          "rating" : "3",
+          "wifi" : "true",
+          "basics" : "22P5 + delurant",
+          "practices" : "medicatie"
         },
         {
           "id": 2,
           "title": "Bed 2",
           "bed_location": "Vleugel y - 1.03",
-          "beds_in_room": 3
+          "beds_in_room": 3,
+          "place_location" : "Apeldoorn",
+          "rating" : "3",
+          "wifi" : "true",
+          "basics" : "22P5 + delurant",
+          "practices" : "medicatie"
         },
         {
           "id": 3,
           "title": "Bed 3",
           "bed_location": "Vleugel y - 1.04",
-          "beds_in_room": 4
+          "beds_in_room": 4,
+          "place_location" : "Apeldoorn",
+          "rating" : "3",
+          "wifi" : "true",
+          "basics" : "22P5 + delurant",
+          "practices" : "medicatie"
         },
         {
           "id": 4,
           "title": "Bed 4",
           "bed_location": "Vleugel y - 1.05",
-          "beds_in_room": 6
+          "beds_in_room": 6,
+          "place_location" : "Apeldoorn",
+          "rating" : "3",
+          "wifi" : "true",
+          "basics" : "22P5 + delurant",
+          "practices" : "medicatie"
         },
         {
           "id": 5,
           "title": "Bed 5",
           "bed_location": "Vleugel y - 1.06",
-          "beds_in_room": 1
+          "beds_in_room": 1,
+          "place_location" : "Apeldoorn",
+          "rating" : "3",
+          "wifi" : "true",
+          "basics" : "22P5 + delurant",
+          "practices" : "medicatie"
         }
       ]
     },
@@ -143,7 +200,12 @@ export class BedsService {
           "id": 4,
           "title": "Bed 4",
           "bed_location": "Vleugel y - 1.05",
-          "beds_in_room": 6
+          "beds_in_room": 6,
+          "place_location" : "Den Haag",
+          "rating" : "4",
+          "wifi" : "false",
+          "basics" : "22P5 + delurant",
+          "practices" : "medicatie"
         }
       ]
     }

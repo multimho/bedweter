@@ -8,7 +8,7 @@ export class BedModel {
   public wifi: boolean;
   public basics: string;
   public practices: string;
-  public booked: boolean; //number of affl or zero
+  public booked : number; //number of affl or zero
   public hash?: string;
   constructor(){
     this.title = "Bed 0";
@@ -19,6 +19,6 @@ export class BedModel {
     this.wifi = true;
     this.basics = "22P5 + delurant";
     this.practices = "medicatie";
-    this.booked = true;
+    this.booked = 0;
   }
 }
