@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 import {IonicPage, NavController, NavParams, MenuController} from 'ionic-angular';
 import {Subscription} from 'rxjs/Subscription';
-import {AutoriteitProvider} from '../../providers/autoriteit/autoriteit'
+
 import {ProtectedPage} from '../protected-page/protected-page';
 import {Storage} from '@ionic/storage';
 import {BedsService} from '../../providers/beds-service';
@@ -21,19 +21,19 @@ export class BedsPage extends ProtectedPage implements OnDestroy {
     public navCtrl: NavController,
     public navParams: NavParams,
     public menuCtrl: MenuController,
-    public au: AutoriteitProvider,
     public storage: Storage,
     public bedsService: BedsService) {
 
     super(navCtrl, navParams, storage);
-    // subscribe to the messages of the bedsService
     this.subscription = bedsService.bedsChanged$.subscribe(
       bed_place => {
-        console.log("Bedplace", bed_place, "changed!!")
-        this.beds = bedsService.getBeds(bed_place);
+        if (bed_place == this.getAffiliation()) {
+          // update only my own beds
+          this.beds = bedsService.getBeds(bed_place);
+          console.log("Bedplace", bed_place, "changed!!");
+        }
       }
     )
-
   }
 
   ionViewWillEnter() {

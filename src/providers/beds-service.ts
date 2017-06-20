@@ -41,8 +41,8 @@ export class BedsService {
 
   private cfg: any;
   //private nextid: number;
-  private bedplaces: any;
-  private beds: any;
+  //private bedplaces: any;
+  //private beds: any;
   private bpviewmodel: any;
 
   constructor( public events: Events,
