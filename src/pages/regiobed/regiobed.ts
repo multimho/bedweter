@@ -1,12 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
-import {Subscription} from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
 
-import {AutoriteitProvider} from '../../providers/autoriteit/autoriteit'
-import {ProtectedPage} from '../protected-page/protected-page';
-import {Storage} from '@ionic/storage';
-import {BedsService} from '../../providers/beds-service';
+import { AutoriteitProvider } from '../../providers/autoriteit/autoriteit'
+import { ProtectedPage } from '../protected-page/protected-page';
+import { Storage } from '@ionic/storage';
+import { BedsService } from '../../providers/beds-service';
+import { BedModel } from '../../models/bed.model';
 
 /**
  * Generated class for the RegiobedPage page.
@@ -46,12 +47,12 @@ export class RegiobedPage extends ProtectedPage implements OnDestroy {
   ionViewWillEnter() {
     let places = this.bedsService.getBedPlaceIDs();
     this.beds = [];
-    for (let p of places){
-      console.log('Dit is p en het bed', p);
-        let b  = this.bedsService.getBeds(p);
-        this.beds.push({p, b});
+    for (let place of places){
+      console.log('Dit is place en het bed', place);
+        let b: BedModel[]  = this.bedsService.getBeds(place);
+        this.beds.push({place, b});
     }
-    //this.beds = this.bedsService.getBeds(this.getAffiliation());
+    // this.beds = this.bedsService.getBeds(this.getAffiliation());
     // this.bedsService.getAll().then(beds => this.beds = beds);
   }
 
@@ -59,15 +60,28 @@ export class RegiobedPage extends ProtectedPage implements OnDestroy {
     console.log('ionViewDidLoad RegiobedPage');
   }
 
-  showToastWithCloseButton(a, b) {
+  bookOrUnbook(bedplace_id: number, bed: BedModel) {
+    let bookedString = 'booked';
+    if (bed.booked) {
+      this.bedsService.unbook(bedplace_id, bed, this.getAffiliation());
+      bookedString = 'unbooked';
+    } else {
+      this.bedsService.book(bedplace_id, bed, this.getAffiliation());
+    };
+
     const toast = this.toastCtrl.create({
-      message: 'Bed was succesfully (un)booked!',
+      message: 'Bed '+ bed.title + ' (' + bed.id + ') was succesfully ' + bookedString,
       showCloseButton: true,
+      duration: 2500,
       cssClass: 'succes',
       closeButtonText: 'Ok'
     });
     toast.present();
-    this.bedsService.book(a, b, this.getAffiliation())
+  }
+
+  isBookable(bed: BedModel): boolean {
+    return (!bed.booked) || (bed.booked_by == this.getAffiliation());
+    // return bed.isBookable(this.getAffiliation());
   }
 
   itemTapped(event, item) {

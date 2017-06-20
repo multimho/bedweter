@@ -9,9 +9,7 @@ export class MockstoreProvider implements StorageInterface {
 
   private repres: any;
 
-  constructor(
- public events: Events
-  ) {
+  constructor(public events: Events) {
     console.log('Hello MockstoreProvider Provider');
   }
 
@@ -20,28 +18,38 @@ export class MockstoreProvider implements StorageInterface {
     this.repres = r;
   }
 
-  add(bp: BedPlaceModel, bed: BedModel){
+  add(bp: BedPlaceModel, bed: BedModel) {
+    bed.id = this.repres[bp.id].beds.length; // TODO: werkt niet als tussenliggende bedden worden verwijderd
     this.repres[bp.id].beds.push(bed);
-    console.log("From mockstore adding: ", this.repres);
     this.events.publish('storage:update', this.repres);
+    console.log("From mockstore adding: ", this.repres);
   }
-  book(bp: BedPlaceModel, bed: BedModel, affl: number){
+
+  book(bp: BedPlaceModel, bed: BedModel, affl: number) {
     this.repres[bp.id].beds[bed.id] = bed;
     this.events.publish('storage:update', this.repres);
     console.log("From mockstore booking: ", this.repres);
   }
-  unbook(bp: BedPlaceModel, bed: BedModel, affl: number){}
+
+  unbook(bp: BedPlaceModel, bed: BedModel, affl: number) {
+    this.repres[bp.id].beds[bed.id] = bed;
+    this.events.publish('storage:update', this.repres);
+    console.log("From mockstore unbooking: ", this.repres);
+  }
+
   update(bp: BedPlaceModel, bed: BedModel){
     this.repres[bp.id].beds[bed.id] = bed;
     this.events.publish('storage:update', this.repres);
     console.log("From mockstore updating: ", this.repres);
   }
+
   remove(bp: BedPlaceModel, bed: BedModel){
     //delete this.repres[bp.id].beds[bed.id];
-    let index = bed.id-1;
-    if (index> -1){ this.repres[bp.id].beds.splice(index, 1); }
+    let index = bed.id;
+    if (index >= 0) {
+      this.repres[bp.id].beds.splice(index, 1);
+    }
     this.events.publish('storage:update', this.repres);
     console.log("From mockstore deleting: ", this.repres);
   }
-
-  }
+}

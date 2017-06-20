@@ -16,16 +16,17 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngFor="let x of beds">
+  <ion-list *ngFor="let x of this.beds">
     <ion-list-header>
-        Radboud UMC {{x.p}}
+        Radboud UMC {{ x.place }}
     </ion-list-header>
     <ion-item *ngFor="let bed of x.b" >
       <ion-label>{{bed.title}}</ion-label>
       <div class="item-note" item-right>
         {{bed.bed_location}}
       </div>
-      <ion-toggle id="tod" checked="false" (click)="showToastWithCloseButton(x.p, bed)"></ion-toggle>
+      <ion-toggle [(ngModel)]="bed.booked" [disabled]="!this.isBookable(bed)"
+          on-tap="this.bookOrUnbook(x.place, bed)"></ion-toggle>
     </ion-item>
   </ion-list>
 </ion-content>

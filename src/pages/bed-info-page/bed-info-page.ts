@@ -35,7 +35,7 @@ export class BedInfoPage extends ProtectedPage {
     const toast = this.toastCtrl.create({
       message: 'Bed was succesfully removed!',
       showCloseButton: true,
-      duration: 2000,
+      duration: 2500,
       cssClass: 'succes',
       closeButtonText: 'Ok'
     });

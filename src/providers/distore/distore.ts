@@ -71,7 +71,7 @@ export class DistoreProvider {
     });
   }// end of constructor
 
-  save_data(){
+  save_data() {
     var toStore = "jeeh it works"
     //document.getElementById('source').value
     //var toStore = createData()
@@ -91,7 +91,16 @@ export class DistoreProvider {
         })
     })
   }
-  public getBeds(){return []};
-  public getBedPlaces(){return []};
-  public getNextID(){return 0};
+  
+  public getBeds() {
+    return [];
+  }
+
+  public getBedPlaces() {
+    return [];
+  }
+
+  public getNextID() {
+    return 0;
+  }
 }

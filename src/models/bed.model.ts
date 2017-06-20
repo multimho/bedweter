@@ -8,8 +8,10 @@ export class BedModel {
   public wifi: boolean;
   public basics: string;
   public practices: string;
-  public booked : number; //number of affl or zero
+  public booked : boolean;
+  public booked_by: number; // number of affl or zero
   public hash?: string;
+
   constructor(){
     this.title = "Bed 0";
     this.bed_location = "TC-23.0";
@@ -19,6 +21,17 @@ export class BedModel {
     this.wifi = true;
     this.basics = "22P5 + delurant";
     this.practices = "medicatie";
-    this.booked = 0;
+    this.booked = false;
+    this.booked_by = 0;
+  }
+
+  isBookable(affl: number): boolean {
+    console.log("Bed", this, "is bookable", (this.booked))
+
+    return (!this.booked) || (this.booked_by == affl);
+  }
+
+  isBooked(): boolean {
+    return this.booked;
   }
 }

@@ -1,11 +1,11 @@
-import {Component, OnDestroy} from '@angular/core';
-import {IonicPage, NavController, NavParams, MenuController} from 'ionic-angular';
-import {Subscription} from 'rxjs/Subscription';
-import {AutoriteitProvider} from '../../providers/autoriteit/autoriteit'
-import {ProtectedPage} from '../protected-page/protected-page';
-import {Storage} from '@ionic/storage';
-import {BedsService} from '../../providers/beds-service';
-import {BedModel} from '../../models/bed.model';
+import { Component, OnDestroy } from '@angular/core';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { Subscription } from 'rxjs/Subscription';
+import { AutoriteitProvider } from '../../providers/autoriteit/autoriteit'
+import { ProtectedPage } from '../protected-page/protected-page';
+import { Storage } from '@ionic/storage';
+import { BedsService } from '../../providers/beds-service';
+import { BedModel } from '../../models/bed.model';
 
 @IonicPage()
 @Component({

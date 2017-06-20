@@ -30,21 +30,22 @@ export class AutoriteitProvider {
           this.store.update(bp, bed);
           console.log('AutoriteitProvider - update:', bp_id, bed);
     } );
-    events.subscribe('crud-action:remove', (bp_id: number, bed: BedModel)=>{
+    events.subscribe('crud-action:remove', (bp_id: number, bed: BedModel) => {
           let bp = this.bs.getBedPlace(bp_id);
           this.store.remove(bp, bed);
           console.log('AutoriteitProvider - remove:', bp_id, bed);
     });
-    events.subscribe('crud-action:book', (bp_id:number, bed: BedModel, affl: number)=>{
+    events.subscribe('crud-action:book', (bp_id:number, bed: BedModel, affl: number) => {
       let bp = this.bs.getBedPlace(bp_id);
       this.store.book(bp, bed, affl);
       console.log('AutoriteitProvider - book:', bp_id, bed, affl);
     });
-    events.subscribe('crud-action:unbook', this.unbook);
+    events.subscribe('crud-action:unbook', (bp_id:number, bed: BedModel, affl: number) => {
+      let bp = this.bs.getBedPlace(bp_id);
+      this.store.unbook(bp, bed, affl);
+      console.log('AutoriteitProvider - unbook:', bp_id, bed, affl);
+    });
   }
 
-  unbook = function unbook(bp_id: number, bed: BedModel, affl: number){
-    console.log('AutoriteitProvider:', bp_id, bed, affl);
-  };
 
 }

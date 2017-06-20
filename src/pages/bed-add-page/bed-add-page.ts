@@ -40,7 +40,6 @@ export class BedAddPage extends ProtectedPage {
       wifi: ['', Validators.required],
       basics: ['', Validators.required],
       practices: ['', Validators.required],
-
     });
   }
 
@@ -48,7 +47,7 @@ export class BedAddPage extends ProtectedPage {
     const toast = this.toastCtrl.create({
       message: 'Bed was succesfully added!',
       showCloseButton: true,
-      duration: 2000,
+      duration: 2500,
       cssClass: 'succes',
       closeButtonText: 'Ok'
     });
