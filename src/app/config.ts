@@ -5,5 +5,6 @@ export let cfg = {
     register: '/auth/signup',
     login: '/auth/login'
   },
-  beds: '/beds'
+  beds: '/beds',
+  patients: '/patients'
 };

@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Events } from 'ionic-angular';
 import { BedModel } from '../../models/bed.model';
+import { PatientModel } from '../../models/patient.model';
 import { MockstoreProvider } from '../mockstore/mockstore';
 import { BedsService } from '../beds-service';
+import { PatientsService } from '../patients-service';
 /*
   Generated class for the AutoriteitProvider provider.
 
@@ -17,30 +19,48 @@ export class AutoriteitProvider {
   constructor(
     public events: Events,
     public store: MockstoreProvider,
-    public bs: BedsService) {
-    console.log('Hello AutoriteitProvider Provider');
-    store.setDefault(bs.getAll()); // fill the storage with default data
+    public bs: BedsService,
+    public ps: PatientsService) {
+    console.log('Hello AutoriteitProvider Provider'); // fill the storage with default data
     events.subscribe('crud-action:add', (bp_id: number, bed: BedModel) => {
+    store.setDefault(bs.getAll());
           let bp = this.bs.getBedPlace(bp_id);
-          this.store.add(bp, bed);
+          this.store.addBed(bp, bed);
           console.log('AutoriteitProvider - add:', bp_id, bed);
     } );
     events.subscribe('crud-action:update', (bp_id: number, bed: BedModel) => {
+    store.setDefault(bs.getAll());
           let bp = this.bs.getBedPlace(bp_id);
-          this.store.update(bp, bed);
+          this.store.updateBed(bp, bed);
           console.log('AutoriteitProvider - update:', bp_id, bed);
     } );
     events.subscribe('crud-action:remove', (bp_id: number, bed: BedModel)=>{
+    store.setDefault(bs.getAll());
           let bp = this.bs.getBedPlace(bp_id);
-          this.store.remove(bp, bed);
+          this.store.removeBed(bp, bed);
           console.log('AutoriteitProvider - remove:', bp_id, bed);
     });
     events.subscribe('crud-action:book', (bp_id:number, bed: BedModel, affl: number)=>{
+    store.setDefault(bs.getAll());
       let bp = this.bs.getBedPlace(bp_id);
       this.store.book(bp, bed, affl);
       console.log('AutoriteitProvider - book:', bp_id, bed, affl);
     });
     events.subscribe('crud-action:unbook', this.unbook);
+
+    /* patient */
+    events.subscribe('patient-action:add', (patient: PatientModel) => {
+    store.setDefault(ps.getAll());
+          this.store.addPatient(patient);
+    } );
+    events.subscribe('patient-action:update', (patient: PatientModel) => {
+    store.setDefault(ps.getAll());
+          this.store.updatePatient(patient);
+    } );
+    events.subscribe('patient-action:remove', (patient: PatientModel)=>{
+    store.setDefault(ps.getAll());
+          this.store.removePatient(patient);
+    });
   }
 
   unbook = function unbook(bp_id: number, bed: BedModel, affl: number){

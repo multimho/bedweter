@@ -30,6 +30,7 @@ export class MyApp {
     this.pages = [
       {title: 'page.profile', component: 'ProfilePage'},
       {title: 'page.regiobed.title', component: 'RegiobedPage'},
+      {title: 'Patients', component: 'PatientsPage'},
       {title: 'page.beds.list', component: 'BedsPage'},
       //{title: 'page.regiobed.cmp', component: 'RegiobedCmpPage'},
       {title: 'page.logout', component: 'LoginPage', method: 'logout'}

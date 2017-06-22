@@ -1,0 +1,30 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Patients</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!--
+<button ion-button block (click)="openPage('BedAddPage')">{{ 'button.add_bed' | translate }}</button>
+  -->
+  <ion-list *ngIf="patients">
+    <ion-item  *ngFor="let patient of patients" (click)="patientInfo(patient)">
+      <ion-label>{{patient.name}}</ion-label>
+      <div class="item-note" item-right>
+        {{patient.date_of_birth}}
+      </div>
+      <button>more info </button>
+    </ion-item>
+  </ion-list>
+<ion-fab right bottom>
+  <button ion-fab (click)="openPage('PatientAddPage')"><ion-icon name="add"></ion-icon></button>
+</ion-fab>
+</ion-content>
