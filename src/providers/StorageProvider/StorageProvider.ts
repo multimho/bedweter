@@ -3,29 +3,27 @@ import 'rxjs/add/operator/map';
 import { BedPlaceModel } from '../../models/bedplace.model';
 import { BedModel } from '../../models/bed.model';
 import { Events } from 'ionic-angular';
-import { DistributedStorage } from '../Distributed/DistributedStorage';
-import { StorageInterface } from '../storage-interface';
+import { DistributedStorageProvider } from '../DistributedStorage/DistributedStorageProvider';
 
 @Injectable()
-export class MockStore implements StorageInterface{
+export class StorageProvider extends DistributedStorageProvider
+                             implements StorageInterface
+{
+    private repres: any;
+    constructor(public events: Events)
+    {
+        super();
+        console.log('Hello MockstoreProvider Provider');
+    }
 
-  private repres: any;
+      // Stupid hack to get the mockup data
+    setDefault(r: any){ this.repres = r;}
 
-  constructor( public events: Events ) {
-    //super();
-    console.log('Hello MockstoreProvider Provider');
-  }
-
-  // Stupid hack to get the mockup data
-  setDefault(r: any){
-    this.repres = r;
-  }
-
-  add(bp: BedPlaceModel, bed: BedModel){
-    this.repres[bp.id].beds.push(bed);
-    console.log("From mockstore adding: ", this.repres);
-    this.events.publish('storage:update', this.repres);
-  }
+    add(bp: BedPlaceModel, bed: BedModel){
+        this.repres[bp.id].beds.push(bed);
+        console.log("From mockstore adding: ", this.repres);
+        this.events.publish('storage:update', this.repres);
+      }
   book(bp: BedPlaceModel, bed: BedModel, affl: number){
     this.repres[bp.id].beds[bed.id] = bed;
     this.events.publish('storage:update', this.repres);
@@ -45,4 +43,4 @@ export class MockStore implements StorageInterface{
     console.log("From mockstore deleting: ", this.repres);
   }
 
-}
+  }

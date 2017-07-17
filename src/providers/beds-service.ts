@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {Subject} from 'rxjs/Subject';
 import *  as AppConfig from '../app/config';
-import { MockstoreProvider } from './mockstore/mockstore';
+import { MockStore } from './mockstore/mockstore';
 
 /*
 vangt events af van de lockers en stuurt en vraagt data
@@ -46,7 +46,7 @@ export class BedsService {
 
   constructor(
     private authHttp: AuthHttp,
-    private store: MockstoreProvider) {
+    private store: MockStore) {
 
     this.cfg = AppConfig.cfg;
     this.nextid = store.getNextID(); // get defaults from storage
