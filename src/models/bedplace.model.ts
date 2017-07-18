@@ -1,9 +1,6 @@
-export class BedPlaceModel {
+import { BedModel } from './bed.model';
 
-  public id?: number;
-  public user_id?: number;
+export class BedPlaceModel {
   public name: string;
-  public description: string;
-  public key: string;
-  public ipns_dir: string;
+  public beds: BedModel[];
 }

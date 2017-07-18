@@ -15,6 +15,9 @@ export class CryptoProvider {
 
   constructor() {
     console.log('Hello CryptoProvider Provider');
+    // check if you are logged in. who are we? then get set keys from
+    // crypto card or something else
+    // and initialise the rest. otherwise, create error message.
     this.openpgp = GpgCrypt;
     this.openpgp.initWorker({ path:'../assets/openpgp.worker.js'}) // set the relative web worker path
     //this.openpgp.initWorker({ path:'./lib/openpgp.worker.js' }) // set the relative web worker path
