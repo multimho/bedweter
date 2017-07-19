@@ -13,7 +13,7 @@ import {MockStore} from '../../providers/mockstore/mockstore';
 })
 export class BedsPage extends ProtectedPage implements OnDestroy {
 
-  public beds: any;
+  public beds: BedModel[] = new Array();
   //subscription: Subscription;
 
   constructor(
@@ -28,23 +28,29 @@ export class BedsPage extends ProtectedPage implements OnDestroy {
     //this.subscription = bedsService.bedsChanged$.subscribe(
     //  bed_place => {
     //    console.log("Bedplace", bed_place, "changed!!")
-    //    this.beds = bedsService.getBeds(bed_place);
-    //}
-    //)
-
+    //    this.beds = bedsService.getBeds(bed_place);})
+    let bed = new BedModel();
+    bed.available = true;
+    bed.bed_location = "Zaal 1 ; Kamer 1";
+    bed.title = "Bed 1";
+    bed.beds_in_room = 2;
+    //if (this.beds.length<1){[]};
+    //this.beds.push(bed);
+    if (this.beds.length < 0){
+      this.PLService.add(bed);
+    }
   }
 
   ionViewWillEnter() {
+    this.beds = []
     this.beds = this.PLService.getAll();
-    //this.beds = this.bedsService.getBeds(this.getAffiliation());
-    // this.bedsService.getAll().then(beds => this.beds = beds);
   }
 
   edit(bed: BedModel) {
     this.navCtrl.push('BedEditPage', {bed: bed});
   }
   add() {
-    this.navCtrl.push('BedEditPage');
+    this.navCtrl.push('BedAddPage');
   }
 
   ngOnDestroy() {

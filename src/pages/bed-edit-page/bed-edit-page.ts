@@ -26,11 +26,7 @@ export class BedEditPage extends ProtectedPage {
     ) {
 
     super(navCtrl, navParams, storage);
-    this.bed = new BedModel;//navParams.get('bed');
-    this.bed.available = true;
-    this.bed.bed_location ="dhsagf";
-    this.bed.beds_in_room = 4;
-    this.bed.title = "jsdsahfjkd";
+    this.bed = navParams.get('bed');
     this.bedData = this.formBuilder.group({
       title: [this.bed.title, Validators.required],
       bed_location: [this.bed.bed_location, Validators.required],
@@ -40,14 +36,7 @@ export class BedEditPage extends ProtectedPage {
   }
 
   process() {
+    this.PLService.add(this.bed)
     this.navCtrl.pop();
-    //this.PLService.add(this.bed)
-    //  .then(() => this.navCtrl.pop())
-    //  .catch((e) => console.log("add bed error", e)); */
-    /* this.bedsService.update(updatedBed)
-      .then(() => this.navCtrl.pop())
-      .catch((e) => console.log("add bed error", e)); */
   }
-
-
 }

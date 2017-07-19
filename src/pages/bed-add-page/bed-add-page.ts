@@ -3,6 +3,7 @@ import {IonicPage, NavController, NavParams, MenuController} from 'ionic-angular
 import {ToastController} from 'ionic-angular';
 import {ProtectedPage} from '../protected-page/protected-page';
 import {Storage} from '@ionic/storage';
+import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {MockStore} from '../../providers/mockstore/mockstore';
 import {BedModel} from '../../models/bed.model';
 
@@ -13,6 +14,7 @@ import {BedModel} from '../../models/bed.model';
 })
 export class BedAddPage extends ProtectedPage {
 
+  private bedData: FormGroup;
   private bed: BedModel;
 
   constructor(
@@ -21,17 +23,18 @@ export class BedAddPage extends ProtectedPage {
     public toastCtrl: ToastController,
     public menuCtrl: MenuController,
     public storage: Storage,
+    public formBuilder: FormBuilder,
     public PLService: MockStore,
     )
     {
     super(navCtrl, navParams, storage);
     this.bed = new BedModel;
-    this.bed.bed_location = "h34.z1";
-    this.bed.beds_in_room = 2;
-    this.bed.title = "hallo";
-    this.bed.available = false;
-    console.log(this.navCtrl.id);
-
+    this.bedData = this.formBuilder.group({
+      title: ['', Validators.required],
+      bed_location: ['', Validators.required],
+      beds_in_room: [0, Validators.required],
+      available: [false, Validators.required],
+    });
   }
 
   showToastWithCloseButton() {
