@@ -3,24 +3,39 @@ import 'rxjs/add/operator/map';
 import { BedPlaceModel } from '../../models/bedplace.model';
 import { BedModel } from '../../models/bed.model';
 import { Events } from 'ionic-angular';
-import { DistributedStorage } from '../Distributed/DistributedStorage';
-import { StorageInterface } from '../storage-interface';
 
 @Injectable()
-export class MockStore implements StorageInterface{
+export class MockStore {
 
-  private repres: any;
+  // in this mockup, it's just a list. Could make it a directory
+  // so it will look more like IPFS
+  private list: any[];
 
   constructor( public events: Events ) {
-    //super();
-    console.log('Hello MockstoreProvider Provider');
+    // inject crypto
+    this.list = [];
   }
 
   // Stupid hack to get the mockup data
   setDefault(r: any){
-    this.repres = r;
+    this.list= r;
   }
+  public add<T>(foo: T){
+    this.list.push(foo);
+  };
+  public getAll<T>(){
+    return this.list;
+  };
+  public remove<T>(foo: T){};
+  public edit<T>(foo: T){};
+  public open(url: string){};
+//  public save(){};
+  public ls(url: string){};
+  public isEmpty(){
+    if (this.list.length==0) {return true;}
+  };
 
+/*
   add(bp: BedPlaceModel, bed: BedModel){
     this.repres[bp.id].beds.push(bed);
     console.log("From mockstore adding: ", this.repres);
@@ -44,5 +59,6 @@ export class MockStore implements StorageInterface{
     this.events.publish('storage:update', this.repres);
     console.log("From mockstore deleting: ", this.repres);
   }
+  */
 
 }
