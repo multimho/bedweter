@@ -2,10 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import {Subscription} from 'rxjs/Subscription';
-
 import {ProtectedPage} from '../protected-page/protected-page';
 import {Storage} from '@ionic/storage';
-import {BedsService} from '../../providers/beds-service';
 
 /**
  * Generated class for the RegiobedPage page.
@@ -15,10 +13,10 @@ import {BedsService} from '../../providers/beds-service';
  */
 @IonicPage()
 @Component({
-  selector: 'page-regiobed',
-  templateUrl: 'regiobed.html',
+  selector: 'page-bedplaces',
+  templateUrl: 'bedplaces-page.html',
 })
-export class RegiobedPage extends ProtectedPage implements OnDestroy {
+export class BedPlacesPage extends ProtectedPage implements OnDestroy {
   selectedItem: any;
   public beds: any;
   subscription: Subscription;
@@ -26,8 +24,8 @@ export class RegiobedPage extends ProtectedPage implements OnDestroy {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public toastCtrl: ToastController,
-              public storage: Storage,
-              public bedsService: BedsService) {
+              public storage: Storage
+            ){
 
       super(navCtrl, navParams, storage);
       /*this.subscription = bedsService.bedsChanged$.subscribe(
@@ -42,12 +40,12 @@ export class RegiobedPage extends ProtectedPage implements OnDestroy {
   }
 
   ionViewWillEnter() {
-    this.beds = this.bedsService.getBeds(this.getAffiliation());
+  //  this.beds = this.bedsService.getBeds(this.getAffiliation());
     // this.bedsService.getAll().then(beds => this.beds = beds);
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RegiobedPage');
+    console.log('ionViewDidLoad BedPlacesPage');
   }
 
   showToastWithCloseButton() {
@@ -62,7 +60,7 @@ export class RegiobedPage extends ProtectedPage implements OnDestroy {
 
   itemTapped(event, item) {
     // That's right, we're pushing to ourselves!
-    this.navCtrl.push(RegiobedPage, {
+    this.navCtrl.push(BedPlacesPage, {
       item: item
     });
   }

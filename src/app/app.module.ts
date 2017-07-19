@@ -7,14 +7,13 @@ import {HttpModule, Http} from '@angular/http';
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
 import {Storage} from '@ionic/storage';
 import {AuthService} from '../providers/auth-service';
-import {BedsService} from '../providers/beds-service';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import { CryptoProvider } from '../providers/crypto/crypto';
-import { StoreService } from '../providers/store-service';
+import {MockStore} from '../providers/mockstore/mockstore';
+
 
 let storage = new Storage({});
 
@@ -61,7 +60,7 @@ export function createTranslateLoader(http: Http) {
       deps: [Http]
     },
     AuthService,
-    StoreService,
+    MockStore,
     CryptoProvider
   ]
 })

@@ -7,6 +7,7 @@
     "confirm_password" : "Confirm password",
     "title" : "Bed name",
     "bed_location": "Bed location",
+    "availability": "Availability",
     "beds_in_room": "# of beds in the room"
   },
   "button" : {
@@ -26,13 +27,13 @@
     "forgotten_password" : "Password recovery",
     "profile" : "Config my locker",
     "beds" : {
-      "list" : "My beds",
+      "list" : "Beds",
       "add": "Add bed",
       "edit" : "Edit bed",
       "preview": "Preview"
     },
-    "regiobed" : {
-      "title" : "Beds in the area"
+    "bedplaces" : {
+      "list" : "Bed places"
     }
   }
 }

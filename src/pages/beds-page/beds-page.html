@@ -16,15 +16,15 @@
 <button ion-button block (click)="openPage('BedAddPage')">{{ 'button.add_bed' | translate }}</button>
   -->
   <ion-list *ngIf="beds">
-    <ion-item  *ngFor="let bed of beds" (click)="bedInfo(bed)">
+    <ion-item  *ngFor="let bed of beds">
       <ion-label>{{bed.title}}</ion-label>
       <div class="item-note" item-right>
         {{bed.bed_location}}
       </div>
-      <button>more info </button>
+      <button (click="edit(bed)")> edit </button>
     </ion-item>
   </ion-list>
 <ion-fab right bottom>
-  <button ion-fab (click)="openPage('BedAddPage')"><ion-icon name="add"></ion-icon></button>
+  <button ion-fab (click)="add()"><ion-icon name="add"></ion-icon></button>
 </ion-fab>
 </ion-content>

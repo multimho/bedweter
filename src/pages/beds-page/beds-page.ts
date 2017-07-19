@@ -1,11 +1,10 @@
 import {Component, OnDestroy} from '@angular/core';
 import {IonicPage, NavController, NavParams, MenuController} from 'ionic-angular';
 import {Subscription} from 'rxjs/Subscription';
-
 import {ProtectedPage} from '../protected-page/protected-page';
 import {Storage} from '@ionic/storage';
-import {BedsService} from '../../providers/beds-service';
 import {BedModel} from '../../models/bed.model';
+import {MockStore} from '../../providers/mockstore/mockstore';
 
 @IonicPage()
 @Component({
@@ -15,46 +14,42 @@ import {BedModel} from '../../models/bed.model';
 export class BedsPage extends ProtectedPage implements OnDestroy {
 
   public beds: any;
-  subscription: Subscription;
+  //subscription: Subscription;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public menuCtrl: MenuController,
     public storage: Storage,
-    public bedsService: BedsService) {
+    public PLService: MockStore,
+  ) {
 
     super(navCtrl, navParams, storage);
-    this.subscription = bedsService.bedsChanged$.subscribe(
-      bed_place => {
-        console.log("Bedplace", bed_place, "changed!!") 
-        this.beds = bedsService.getBeds(bed_place);
-      }
-    )
+    //this.subscription = bedsService.bedsChanged$.subscribe(
+    //  bed_place => {
+    //    console.log("Bedplace", bed_place, "changed!!")
+    //    this.beds = bedsService.getBeds(bed_place);
+    //}
+    //)
 
   }
 
   ionViewWillEnter() {
-    this.beds = this.bedsService.getBeds(this.getAffiliation());
+    this.beds = this.PLService.getAll();
+    //this.beds = this.bedsService.getBeds(this.getAffiliation());
     // this.bedsService.getAll().then(beds => this.beds = beds);
   }
 
-  bedInfo(bed: BedModel) {
-    this.navCtrl.push('BedInfoPage', {bed: bed});
+  edit(bed: BedModel) {
+    this.navCtrl.push('BedEditPage', {bed: bed});
   }
-
-  /**
-   * Opens a page
-   *
-   * @param page string Page name
-   */
-  openPage(page: string) {
-    this.navCtrl.push(page);
+  add() {
+    this.navCtrl.push('BedEditPage');
   }
 
   ngOnDestroy() {
     // prevent memory leak when component destroyed
-    this.subscription.unsubscribe();
+    //this.subscription.unsubscribe();
   }
 
 }

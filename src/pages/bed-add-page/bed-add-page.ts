@@ -3,8 +3,8 @@ import {IonicPage, NavController, NavParams, MenuController} from 'ionic-angular
 import {ToastController} from 'ionic-angular';
 import {ProtectedPage} from '../protected-page/protected-page';
 import {Storage} from '@ionic/storage';
-import {Validators, FormBuilder, FormGroup} from '@angular/forms';
-import {BedsService} from '../../providers/beds-service';
+import {MockStore} from '../../providers/mockstore/mockstore';
+import {BedModel} from '../../models/bed.model';
 
 @IonicPage()
 @Component({
@@ -13,7 +13,7 @@ import {BedsService} from '../../providers/beds-service';
 })
 export class BedAddPage extends ProtectedPage {
 
-  private bedData: FormGroup;
+  private bed: BedModel;
 
   constructor(
     public navCtrl: NavController,
@@ -21,16 +21,17 @@ export class BedAddPage extends ProtectedPage {
     public toastCtrl: ToastController,
     public menuCtrl: MenuController,
     public storage: Storage,
-    public formBuilder: FormBuilder,
-    public bedsService: BedsService) {
-
+    public PLService: MockStore,
+    )
+    {
     super(navCtrl, navParams, storage);
+    this.bed = new BedModel;
+    this.bed.bed_location = "h34.z1";
+    this.bed.beds_in_room = 2;
+    this.bed.title = "hallo";
+    this.bed.available = false;
+    console.log(this.navCtrl.id);
 
-    this.bedData = this.formBuilder.group({
-      title: ['', Validators.required],
-      bed_location: ['', Validators.required],
-      beds_in_room: ['', Validators.required],
-    });
   }
 
   showToastWithCloseButton() {
@@ -42,12 +43,15 @@ export class BedAddPage extends ProtectedPage {
       closeButtonText: 'Ok'
     });
     toast.present();
+    //this.navCtrl.push('BedsPage');
+    this.navCtrl.pop();
   }
 
   process() {
-    this.bedsService.add(this.getAffiliation(), this.bedData.value);
-    this.navCtrl.pop();
-    this.showToastWithCloseButton();
+    this.PLService.add(this.bed);
+    this.showToastWithCloseButton()
+    //.then(()=>this.navCtrl.pop());
+    //this.navCtrl.push('BedsPage');
     /* this.bedsService.add(this.bedData.value)
       .then(() => this.navCtrl.push('BedsPage'))
       .catch((e) => console.log("add bed error", e)); */

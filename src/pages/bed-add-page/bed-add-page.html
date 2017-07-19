@@ -1,46 +1,34 @@
 <ion-header>
-
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>{{ 'page.beds.add' | translate }}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-
   <ion-grid>
     <ion-row justify-content-around>
       <ion-col col-sm-6 col-md-6 col-lg-4 col-xl-3  align-self-center>
-        <form [formGroup]="bedData" (ngSubmit)="process()">
           <ion-item>
             <ion-label floating>{{ 'label.title' | translate }}:</ion-label>
-            <ion-input type="text" formControlName="title"></ion-input>
+            <ion-input type="text" [(ngModel)]="bed.title"  [ngModelOptions]="{standalone: true}"></ion-input>
           </ion-item>
-
           <ion-item>
             <ion-label floating>{{ 'label.bed_location' | translate }}:</ion-label>
-            <ion-input type="text" formControlName="bed_location"></ion-input>
+            <ion-input type="text" [(ngModel)]="bed.bed_location" [ngModelOptions]="{standalone: true}"></ion-input>
           </ion-item>
-
           <ion-item>
             <ion-label floating>{{ 'label.beds_in_room' | translate }}:</ion-label>
-            <ion-input type="number" formControlName="beds_in_room"></ion-input>
+            <ion-input type="number" [(ngModel)]="bed.beds_in_room" [ngModelOptions]="{standalone: true}"></ion-input>
           </ion-item>
-
-          <button margin-top ion-button type="submit" [disabled]="!bedData.valid">{{ 'button.submit' | translate }}</button>
-
-        </form>
-
-      </ion-col>
-
-    </ion-row>
-
-
-
-  </ion-grid>
-
-</ion-content>
+          <ion-item>
+            <ion-label floating>{{ 'label.availability' | translate }}:</ion-label>
+            <ion-toggle checked="false" [(ngModel)]="bed.available" [ngModelOptions]="{standalone: true}"></ion-toggle>
+            </ion-item>
+            <button ion-button    (click)="process()"    >{{ 'button.submit' | translate }}</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>

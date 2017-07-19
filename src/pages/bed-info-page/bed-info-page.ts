@@ -3,7 +3,6 @@ import {IonicPage, NavController, NavParams, MenuController} from 'ionic-angular
 import {ToastController} from 'ionic-angular';
 import {ProtectedPage} from '../protected-page/protected-page';
 import {Storage} from '@ionic/storage';
-import {BedsService} from '../../providers/beds-service';
 import {BedModel} from '../../models/bed.model';
 
 @IonicPage()
@@ -20,8 +19,8 @@ export class BedInfoPage extends ProtectedPage {
     public navParams: NavParams,
     public toastCtrl: ToastController,
     public menuCtrl: MenuController,
-    public storage: Storage,
-    public bedsService: BedsService) {
+    public storage: Storage
+    ) {
 
     super(navCtrl, navParams, storage);
 
@@ -46,7 +45,7 @@ export class BedInfoPage extends ProtectedPage {
   }
 
   deleteBed(bed: BedModel) {
-    this.bedsService.remove(this.getAffiliation(), bed.id);
+    //this.bedsService.remove(this.getAffiliation(), bed.id);
     this.showToastWithCloseButton();
     this.navCtrl.pop();
     /* this.bedsService.remove(bed.id)

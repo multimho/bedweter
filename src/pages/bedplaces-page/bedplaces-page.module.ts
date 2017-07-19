@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { RegiobedPage } from './regiobed';
+import { BedPlacesPage } from './bedplaces-page';
 import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
-    RegiobedPage,
+    BedPlacesPage,
   ],
   imports: [
-    IonicPageModule.forChild(RegiobedPage),
+    IonicPageModule.forChild(BedPlacesPage),
     TranslateModule.forChild()
   ],
   exports: [
-    RegiobedPage
+    BedPlacesPage
   ]
 })
-export class RegiobedPageModule {}
+export class BedPlacesPageModule {}
