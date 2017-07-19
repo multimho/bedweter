@@ -5,7 +5,7 @@ import { BedModel } from '../../models/bed.model';
 import { Events } from 'ionic-angular';
 
 @Injectable()
-export class MockStore {
+export class MockStore2 {
 
   // in this mockup, it's just a list. Could make it a directory
   // so it will look more like IPFS

@@ -15,6 +15,7 @@ export class BedEditPage extends ProtectedPage {
 
   private bedData: FormGroup;
   private bed: BedModel;
+  private index: number;
 
   constructor(
     public navCtrl: NavController,
@@ -27,6 +28,7 @@ export class BedEditPage extends ProtectedPage {
 
     super(navCtrl, navParams, storage);
     this.bed = navParams.get('bed');
+    this.index = navParams.get('i');
     this.bedData = this.formBuilder.group({
       title: [this.bed.title, Validators.required],
       bed_location: [this.bed.bed_location, Validators.required],
@@ -36,7 +38,8 @@ export class BedEditPage extends ProtectedPage {
   }
 
   process() {
-    this.PLService.add(this.bed)
+    this.bed = this.bedData.value;
+    this.PLService.edit(this.bed, this.index);
     this.navCtrl.pop();
   }
 }

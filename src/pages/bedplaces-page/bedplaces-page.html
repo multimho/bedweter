@@ -15,17 +15,19 @@
 
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-list-header>
-        Radboud UMC
-    </ion-list-header>
-    <ion-item *ngFor="let bed of beds" >
-      <ion-label>{{bed.title}}</ion-label>
-      <div class="item-note" item-right>
-        {{bed.bed_location}}
-      </div>
-      <ion-toggle id="tod" checked="false" (click)="showToastWithCloseButton()"></ion-toggle>
+<ion-content padding>
+  <ion-list *ngIf="bplist">
+    <ion-item *ngFor="let b of bplist">
+      <ion-list-header>
+        {{b.name}}
+      </ion-list-header>
+      <ion-item *ngFor="let bed of b.beds" >
+        <ion-label>{{bed.title}}</ion-label>
+        <div class="item-note" item-right>
+          {{bed.bed_location}}
+        </div>
+        <ion-toggle id="tod" checked="false" (click)="showToastWithCloseButton()"></ion-toggle>
+      </ion-item>
     </ion-item>
   </ion-list>
 </ion-content>

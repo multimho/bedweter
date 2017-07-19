@@ -4,6 +4,10 @@ import { ToastController } from 'ionic-angular';
 import {Subscription} from 'rxjs/Subscription';
 import {ProtectedPage} from '../protected-page/protected-page';
 import {Storage} from '@ionic/storage';
+import {MockStore} from '../../providers/mockstore/mockstore';
+import {MockStore2} from '../../providers/mockstore/mockstore2';
+import {BedPlaceModel} from '../../models/bedplace.model';
+import {BedModel} from '../../models/bed.model';
 
 @IonicPage()
 @Component({
@@ -13,12 +17,16 @@ import {Storage} from '@ionic/storage';
 export class BedPlacesPage extends ProtectedPage implements OnDestroy {
   selectedItem: any;
   public beds: any;
+  public bplist: BedPlaceModel[]= new Array();
+  public hans: string = "foobar";
   subscription: Subscription;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public toastCtrl: ToastController,
-              public storage: Storage
+              public storage: Storage,
+              public PLService: MockStore,
+              public PL2Service: MockStore2
             ){
 
       super(navCtrl, navParams, storage);
@@ -28,17 +36,35 @@ export class BedPlacesPage extends ProtectedPage implements OnDestroy {
               }
             );
 */
-// If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('bed');
+    let bp1 = new BedPlaceModel();
+    bp1.name = "Radboud UMC";
+    bp1.beds.push(new BedModel());
+    bp1.beds[0].available = true;
+    bp1.beds[0].bed_location = "05K.02";
+    bp1.beds[0].title = "Bed Zx78";
+    bp1.beds[0].beds_in_room = 22;
 
+    let bp2 = new BedPlaceModel();
+    bp2.name = "CWZ";
+    bp2.beds = this.PLService.getAll(); // get all beds from local beds view!
+    //if (this.beds.length<1){[]};
+    //this.beds.push(bed);
+    this.bplist = this.PL2Service.getAll();
+    if (this.bplist.length == 0){
+      this.PL2Service.add(bp1);
+    }
+// If we navigated to this page, we will have an item available as a nav param
+    //this.selectedItem = navParams.get('bed');
   }
 
   ionViewWillEnter() {
+    this.bplist = this.PL2Service.getAll();
   //  this.beds = this.bedsService.getBeds(this.getAffiliation());
     // this.bedsService.getAll().then(beds => this.beds = beds);
   }
 
   ionViewDidLoad() {
+    this.bplist = this.PL2Service.getAll();
     console.log('ionViewDidLoad BedPlacesPage');
   }
 

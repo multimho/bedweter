@@ -36,18 +36,20 @@ export class BedsPage extends ProtectedPage implements OnDestroy {
     bed.beds_in_room = 2;
     //if (this.beds.length<1){[]};
     //this.beds.push(bed);
-    if (this.beds.length < 0){
+    this.beds = this.PLService.getAll();
+    if (this.beds.length == 0){
       this.PLService.add(bed);
+      console.log("kleiner dan nul");
     }
   }
 
   ionViewWillEnter() {
-    this.beds = []
     this.beds = this.PLService.getAll();
   }
 
   edit(bed: BedModel) {
-    this.navCtrl.push('BedEditPage', {bed: bed});
+    let z = this.beds.indexOf(bed);
+    this.navCtrl.push('BedEditPage', {bed: bed, i: z});
   }
   add() {
     this.navCtrl.push('BedAddPage');
