@@ -1,33 +1,47 @@
-<!--
-  Generated template for the RegiobedPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>{{ 'page.bedplaces.list' | translate }}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content padding>
-  <ion-list *ngIf="bplist">
-    <ion-item *ngFor="let b of bplist">
+  <!--<ion-list *ngIf="j">
+    <ion-item *ngFor="let z of j">
+      {{z}}
+    </ion-item>
+  </ion-list>
+  <ul *ngFor="let b of bplist">
+   <li>{{ b.name }}</li>
+   <ul>
+    <li *ngFor="let f of b.beds">
+      {{ f.title }}
+    </li>
+   </ul>
+ </ul>-->
+  <ion-list>
+    <ion-item *ngFor="let b of bplist; let i = index">
       <ion-list-header>
         {{b.name}}
       </ion-list-header>
+      <!-- <ion-item>
+        {{i}} -
+        Bed: {{b.beds[i].title}} -
+        Location: {{b.beds[i].bed_location}} -
+        available: {{b.beds[i].available}}
+      </ion-item>-->
+      <ion-list>
       <ion-item *ngFor="let bed of b.beds" >
-        <ion-label>{{bed.title}}</ion-label>
+{{bed.title}} {{bed.bed_location}}
+        <!--<ion-label>{{bed.title}}</ion-label>
         <div class="item-note" item-right>
           {{bed.bed_location}}
         </div>
-        <ion-toggle id="tod" checked="false" (click)="showToastWithCloseButton()"></ion-toggle>
+        <ion-toggle id="tod" checked="false" (click)="showToastWithCloseButton()"></ion-toggle>-->
       </ion-item>
+    </ion-list>
     </ion-item>
   </ion-list>
 </ion-content>
