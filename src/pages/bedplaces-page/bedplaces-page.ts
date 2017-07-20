@@ -42,23 +42,25 @@ export class BedPlacesPage extends ProtectedPage implements OnDestroy {
     bp1.beds[0].beds_in_room = 22;
     let bp2 = new BedPlaceModel();
     bp2.name = "CWZ";
-    bp2.beds.push(new BedModel());
-    bp2.beds[0].available = true;
-    bp2.beds[0].bed_location = "Zaal 1 ; Kamer 1";
-    bp2.beds[0].title = "Bed 1";
-    bp2.beds[0].beds_in_room = 2;
-    // bp2.beds = this.PLService.getAll();
+    //bp2.beds.push(new BedModel());
+    //bp2.beds[0].available = true;
+    //bp2.beds[0].bed_location = "Zaal 1 ; Kamer 1";
+    //bp2.beds[0].title = "Bed 1";
+    //bp2.beds[0].beds_in_room = 2;
+    bp2.beds = this.PLService.getAll();
     // get all beds from local beds view!
-    // this.PL2Service.add(bp2);
+    //this.PL2Service.add(bp2);
     // if (this.beds.length<1){[]};
     // this.beds.push(bed);
+    this.bplist = this.PL2Service.getAll();
     if (this.bplist.length == 0){
       this.PL2Service.add(bp1);
       this.PL2Service.add(bp2);
     }
-    this.bplist = this.PL2Service.getAll();
+    //this.bplist = this.PL2Service.getAll();
     //If we navigated to this page, we will have an item available as a nav param
     //this.selectedItem = navParams.get('bed');
+    console.log("constructor loopt weer");
   }
 
   ionViewWillEnter() {
