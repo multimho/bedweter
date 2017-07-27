@@ -31,6 +31,13 @@ export class MockStore {
     this.list[i] = foo;
   };
   public open(url: string){};
+  // doe dit overerfbaar maken, met twee extra variablen: username
+  // en password om het mogelijk te maken een link te leggen met een
+  // klassieke database.
+  // grappige is dat je de data nog steeds encrypted kunt door sturen
+  // met elke call naar de remote database via de hier beschreven classe
+  // dus data zou theoretisch ook encrypted naar een bestaande database
+  // gaan!
 //  public save(){};
   public ls(url: string){};
   public isEmpty(){
